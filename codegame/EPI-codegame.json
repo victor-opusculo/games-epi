@@ -1,0 +1,25 @@
+{
+	"settings":
+	{
+		"title":"Jogo"
+	},
+	
+	"pages":
+	[
+		{
+			"paragraphs":
+			[
+				{
+					"lines":
+					[
+						{"content": [ "As leis são feitas na ", { "inputWord":"camara" }, ", "]},
+						{"content": [ "local em que acontecem as ", { "inputWord":"plenarias" }, ". "]},
+						{"content": [ "Uma das atividades dos", {"inputWord":"vereadores" }]},
+						{"content": [ "é ", {"inputWord":"fazer"}, {"inputWord":"leis"}, ". " ]},
+						{"content": ["Além de fazer leis, os parlamentares também têm a função de", {"inputWord":"fiscalizar"}, ". "]}
+					]
+				}
+			]
+		}
+	]
+}

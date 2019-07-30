@@ -1,0 +1,30 @@
+﻿{
+	"settings":
+	{
+	},
+	
+	"pages":
+	[
+		{
+			"words":
+			[
+				{"string":"EDIL", "orient":"v", "position":{"y":0,"x":18}, "tip":"Significa o mesmo que \"vereador\""},
+				{"string":"VETAR", "orient":"v", "position":{"y":0,"x":20}, "tip":"Não aprovação de um projeto" },
+				{"string":"DEMOCRACIA", "orient":"v", "position":{"y":1,"x":16}, "tip":"Sistema de governo em que os representantes são eleitos de forma direta" },
+				{"string":"SANCIONAR", "orient":"v", "position":{"y":2,"x":06}, "tip":"Aprovação do prefeito ao projeto aprovado pela Câmara" },
+				{"string":"REQUERIMENTO", "orient":"v", "position":{"y":3,"x":14}, "tip":"Pedido solicitando informações ou prestação de serviços" },
+				{"string":"LEGISLATIVO", "orient":"v", "position":{"y":7,"x":11}, "tip":"Poder que debate, cria e aprova projetos de lei" },
+				{"string":"ORÇAMENTO", "orient":"v", "position":{"y":9,"x":08}, "tip":"Previsão de quanto será gasto com áreas importantes como saúde, educação e outros" },
+				{"string":"PROMULGAR", "orient":"h", "position":{"y":3,"x":13}, "tip":"Tornar público uma lei ou similares" },
+				{"string":"JUDICIÁRIO", "orient":"h", "position":{"y":5,"x":02}, "tip":"Poder que promove a justiça de acordo com a Constituição" },
+				{"string":"VEREADOR", "orient":"h", "position":{"y":9,"x":02}, "tip":"Eleito pelo povo para fiscalizar e criar leis" },
+				{"string":"ORDINÁRIA", "orient":"h", "position":{"y":12,"x":0}, "tip":"Tipo de sessão que acontece todas as terças na Câmara Municipal" },
+				{"string":"INDICAÇÃO", "orient":"h", "position":{"y":12,"x":13}, "tip":"Sugestão de medidas de interesse popular" },
+				{"string":"EXECUTIVO", "orient":"h", "position":{"y":14,"x":6}, "tip":"Poder que coloca em prática as leis e políticas públicas" },
+				{"string":"PLENÁRIO", "orient":"h", "position":{"y":17,"x":1}, "tip":"Local de atuação do vereador onde ocorrem as sessões" },
+				{"string":"CONSTITUIÇÃO", "orient":"h", "position":{"y":17,"x":10}, "tip":"Lei máxima que limita poderes e define os direitos e deveres dos cidadãos" }
+			]
+			
+		}
+	]
+}

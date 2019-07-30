@@ -1,0 +1,58 @@
+#panels { display: flex; margin-top: 25px; }
+#tablePanel, #buttonsPanel { margin: 10px; flex: auto; }
+
+#lblFoundWords { color: green; }
+#lblMistakes { color: red; }
+
+table { border-collapse: collapse; }
+
+table td
+{
+    padding: 8px;
+    cursor: pointer;
+}
+
+table td:hover { background-color: lightgray; }
+
+table td.checked { background-color: darkgray; }
+table td.checkedCorrect { background-color: #22B14C; }
+
+table td.HWordAnswerStart
+{
+    border-top: 2px solid green;
+    border-left: 2px solid green;
+    border-bottom: 2px solid green;
+}
+
+table td.HWordAnswerMid
+{
+    border-top: 2px solid green;
+    border-bottom: 2px solid green;
+}
+
+table td.HWordAnswerEnd
+{
+    border-top: 2px solid green;
+     border-right: 2px solid green;
+    border-bottom: 2px solid green;
+}
+
+table td.VWordAnswerStart
+{
+     border-top: 2px solid green;
+    border-left: 2px solid green;
+    border-right: 2px solid green;
+}
+
+table td.VWordAnswerMid
+{
+    border-left: 2px solid green;
+    border-right: 2px solid green;
+}
+
+table td.VWordAnswerEnd
+{
+    border-left: 2px solid green;
+     border-right: 2px solid green;
+    border-bottom: 2px solid green;
+}

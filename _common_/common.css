@@ -1,0 +1,74 @@
+body
+{
+    margin: 0;
+    font-size: x-large;
+    color: black;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-touch-callout: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+form
+{
+    display: block;
+    background-color: white;
+    max-width: 800px;
+    min-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 15px;
+    padding-bottom: 30px;
+}
+
+h1 { text-align: center; }
+
+label { display: block; }
+
+input[type="button"] 
+{
+    margin: 3px;
+    font-size: 100%;
+    min-width: 150px;
+    border: 1px solid #009600;
+    border-radius: 5px;
+    background-color: #22B14C;
+    color: white;
+    transition-duration: 0.1s;
+    box-shadow: inset 0px -7px 10px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+input[type="button"]:hover { background-color: #009600; }
+input[type="button"]:active { box-shadow: inset 0px 7px 10px rgba(0,0,0,0.2); }
+
+main
+{
+    display: block;
+    padding: 0;
+    min-height: calc(100vh - 278px); /* space filler for "Sticky footer" */
+}
+
+footer
+{
+    background-image:url('pics/rodape.jpg');
+    background-repeat: repeat-x;
+    left: 0;
+    right: 0;
+    height: 100px;
+}
+
+#Logos
+{
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    left: 0;
+    right: 0;
+    overflow: auto;
+}

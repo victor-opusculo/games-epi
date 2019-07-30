@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link type="text/css" rel="stylesheet" href="../_common_/common.css"/>
+		<link type="text/css" rel="stylesheet" href="codegame.css"/>
+		<script defer src="codegame.js"></script>
+		<script>
+		/*
+			window.onload = () =>
+			document.getElementById("btnNext").onclick = function(e)
+			{
+				var inps = document.querySelectorAll("input");
+				
+				for (const i of inps)
+				{
+					let userInput = i.value;
+					let word = i.getAttribute("data-word");
+					
+					alert(userInput.localeCompare(word, undefined, { sensitivity: 'base' }) === 0 );
+				}
+					
+			};*/
+		</script>
+	</head>
+	<body>
+		<main>
+			<form id="startForm" style="display: none;">
+				<h1>Jogo dos Códigos</h1>
+				<div style="text-align: center;">
+					<input type="button" id="btnStartGame" value="Iniciar"/>
+				</div>
+			</form>
+			<form id="gameForm" style="display: none;">
+				<h1>Jogo dos Códigos</h1>
+				<label>Para descobrir as respostas, coloque a primeira letra de cada imagem no quadradinho correspondente:</label>
+				<div id="pagePanel">
+					<!--DOM-->
+				</div>
+				<div id="buttonsPanel">
+					<input type="button" id="btnClear" value="Limpar"/>
+					<input type="button" id="btnShowAnswer" value="Solução"/>
+					<input type="button" id="btnCheck" value="Conferir"/>
+					<input type="button" id="btnNext" value="Prosseguir" style="display: none;"/>
+				</div>
+				
+			</form>
+			<form id="endForm" style="display: none;">
+				<h1>Jogo dos Códigos</h1>
+			</form>
+			
+		</main>
+
+		<div id="Logos">
+			<img src="../_common_/pics/EPI.jpg" alt="Escola do Parlamento de Itapevi" height="130" style="margin-right: 50px;"/>
+			<img src="../_common_/pics/CMI.jpg" alt="Câmara Municipal de Itapevi" height="80"/>
+		</div>
+	
+		<footer>
+					
+		</footer>
+	</body>
+</html>

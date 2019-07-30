@@ -1,0 +1,36 @@
+p.paragraph
+{
+    line-height: 200%;
+}
+
+span.lineSection
+{
+    display: inline-block;
+    margin-right: 10px;
+    line-height: 100%;
+}
+
+span.lineSection * 
+{ 
+    margin-right: 3px; 
+    width: 50px; 
+    min-height: 30px; 
+    box-sizing: border-box;
+}
+
+input[type="text"]
+{
+    font-size: x-large;
+    text-align: center;
+    border: 1px solid dimgray;
+    text-transform: uppercase;
+}
+
+input[type="text"]:focus { background-color: lightgray; }
+
+.correct { background-color: rgb(64, 226, 113) !important; }
+
+#buttonsPanel
+{
+    text-align: center;
+}

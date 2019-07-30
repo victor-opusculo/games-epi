@@ -1,0 +1,58 @@
+<!--Desenvolvido por Victor Opusculo-->
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link type="text/css" rel="stylesheet" href="../_common_/common.css"/>
+		<link type="text/css" rel="stylesheet" href="wordhunt.css"/>
+		<script src="wordhunt.js" defer="defer"></script>
+		<title>Caça-palavras</title>
+	</head>
+	<body>
+		<main>
+			<form id="startPage" style="display: none;">
+				<h1>Caça-palavras</h1>
+				<label id="startPageContent"></label>
+				<div style="text-align: center;"><input type="button" id="btnStartGame" value="Iniciar"/></div>
+			</form>
+			<form id="gamePage" style="display: none;">
+				<h1>Caça-palavras</h1>
+				<label id="pageText"></label>
+				
+				<div id="panels">
+					<div id="tablePanel">
+						<!--DOM-->
+					</div>
+					<div id="buttonsPanel" >
+						<input type="button" id="btnClear" value="Limpar"/>
+						<input type="button" id="btnCheck" value="Conferir"/>
+						<input type="button" id="btnShowAnswer" value="Solução"/>
+						<input type="button" id="btnNext" value="Prosseguir" style="display: none;"/>
+						<br/><br/>
+						Palavras encontradas:<br/>
+						<label id="lblFoundWords"></label>
+						<br/>
+						Letras erradas marcadas: 
+						<label id="lblMistakes">0</label>
+					</div>
+				</div>
+				
+			</form>
+			
+			<form id="endPage" style="display: none;">
+				<h1>Jogo terminado!</h1>
+				<label style="text-align: center;">Você completou o caça-palavras.</label>
+			</form>
+		</main>
+
+		<div id="Logos">
+			<img src="../_common_/pics/EPI.jpg" alt="Escola do Parlamento de Itapevi" height="130" style="margin-right: 50px;"/>
+			<img src="../_common_/pics/CMI.jpg" alt="Câmara Municipal de Itapevi" height="80"/>
+		</div>
+
+		<footer>
+				
+		</footer>
+
+	</body>
+</html>

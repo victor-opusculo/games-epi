@@ -1,0 +1,100 @@
+﻿{
+	"settings":
+	{
+		"startPageContent":"<label style=\"text-align:center;\">Clique no botão abaixo para iniciar o jogo.</label><br/><br/>",
+		"endPageContent":""
+	},
+
+	"pages":
+	[
+		{
+			"text":"Descubra as palavras grifadas no texto abaixo:<br>\"Através de eleições democráticas, que acontecem a cada quatro anos, são eleitos os <strong>VEREADORES</strong> que irão representar a população do município. Se reúnem uma vez por semana na <strong>CÂMARA</strong>, nas <strong>SESSÕES ORDINÁRIAS</strong> onde discutem e aprovam <strong>LEIS</strong> em beneficio dos <strong>MUNÍCIPES</strong>. Outro cargo escolhido através do <strong>VOTO</strong> é o de <strong>PREFEITO</strong> da cidade que é responsável por <strong>ADMINISTRAR</strong> e aplicar os <strong>RECURSOS</strong>, entre outras atividades.\""
+			,
+
+			"board":
+			[
+				"RDDEPVOTOMHRUU",
+				"ITAXZUUEDVJEBA",
+				"MUNICIPESAGCLO",
+				"VEREADORESPUDR",
+				"GIHBMAADSCERID",
+				"LQERASDFSGSSWI",
+				"EHL RÇBOOÇXOEN",
+				"IHJKASFUERVSWA",
+				"SSADMINISTRARR",
+				"PREFEITOBDGPOI",
+				"HUOKVMOSUNFYGA",
+				"RDHIOBZXIVTSCS"
+			],
+
+			"words": 
+			[ 
+				{"string":"VOTO", "orient":"h", "position":{"y":0, "x":5}}, 
+				{"string":"MUNICIPES", "orient":"h", "position":{"y":2, "x":0}},
+				{"string":"VEREADORES", "orient":"h", "position":{"y":3, "x":0}},
+				{"string":"ADMINISTRAR", "orient":"h", "position":{"y":8, "x":2}},
+				{"string":"PREFEITO", "orient":"h", "position":{"y":9, "x":0}},
+				{"string":"LEIS", "orient":"v", "position":{"y":5, "x":0}},
+				{"string":"CAMARA", "orient":"v", "position":{"y":2, "x":4}},
+				{"string":"SESSOES", "orient":"v", "position":{"y":2, "x":8}},
+				{"string":"RECURSOS", "orient":"v", "position":{"y":0, "x":11}},
+				{"string":"ORDINARIAS", "orient":"v", "position":{"y":2, "x":13}}
+			]
+			
+		},
+
+		{
+			"text":"\"O ozônio é um gás importantíssimo para a saúde humana do nosso planeta, tem como função proteger a Terra da radiação ultravioleta. Por isso é muito importante combater tudo o que destrói a camada de ozônio. Utilizando de forma consciente aparelhos e atividades que contribuem para a sua destruição\". <br/><br/>Encontre no diagrama o que destrói o ozônio. São 4 palavras"
+			,
+
+			"board":
+			[
+				"RZDRMPURNBISOPM",
+				"ARCONDICIONADOK",
+				"UKSHRFXXDOQMWEN",
+				"TRBTVCYUXZODGKL",
+				"OPDLINDÚSTRIAGÇ",
+				"MVDJKASFUERVSWA",
+				"ÓMDERASDFSGSSWI",
+				"VFGVGELADEIRABB",
+				"ERZDEPVOTOMHRUX",
+				"LHJKASDERTYJKLD"
+			],
+
+			"words":
+			[
+				{"string":"ARCONDICIONADO", "orient":"h", "position":{"y":1,"x":0}},
+				{"string":"INDÚSTRIA", "orient":"h", "position":{"y":4,"x":4}},
+				{"string":"GELADEIRA", "orient":"h", "position":{"y":7,"x":4}},
+				{"string":"AUTOMÓVEL", "orient":"v", "position":{"y":1,"x":0}}
+			]
+		},
+		
+		{
+			"text":"Encontre no diagrama abaixo as palavras grifadas no texto.<br/><br/>Dicas para melhorar o meio ambiente:<br/>- Faça a <strong>COLETA</strong> seletiva, separe os materiais recicláveis do lixo orgânico.<br/>- Use menos o carro! Ande de <strong>BICICLETA</strong>!<br/>- Plante uma <strong>ÁRVORE</strong>, assim você estará ajudando a reduzir os gases responsáveis pelo aquecimento global.<br/>- <strong>ECONOMIZE</strong> água. Quando estiver escovando os dentes, feche a torneira.<br/>- <strong>APROVEITE</strong> sempre os dois lados das folhas e poupe o corte de muitas árvores."
+			,
+
+			"board":
+			[
+				"HENHVVXHCNXR",
+				"GCMAPROVEITE",
+				"QONHRFNXDOQH",
+				"XNJTVCCUXZOG",
+				"DOLÁRVORETRQ",
+				"FMHJKALFUERX",
+				"BICICLETASGL",
+				"DZSVGETADEIC",
+				"VENHVVAHHNTC"
+			],
+
+			"words":
+			[
+				{"string":"APROVEITE", "orient":"h", "position":{"y":1,"x":3}},
+				{"string":"ÁRVORE", "orient":"h", "position":{"y":4,"x":3}},
+				{"string":"BICICLETA", "orient":"h", "position":{"y":6,"x":0}},
+				{"string":"ECONOMIZE", "orient":"v", "position":{"y":0,"x":1}},
+				{"string":"COLETA", "orient":"v", "position":{"y":3,"x":6}}
+			]
+		}
+	]
+}
