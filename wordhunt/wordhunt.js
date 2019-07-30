@@ -3,31 +3,6 @@
  * Desenvolvido por Victor Opusculo para a Escola do Parlamento de Itapevi - Câmara Municipal de Itapevi
  * =======================================================================================================*/
 
-function Game(gameDataObject)
-{
-	this._gameData = gameDataObject; // expects object { settings: {}, pages: [ { "text":"", "board":[], "words":[] } ] }
-	this._currentPage = -1;
-	this._pages = gameDataObject.pages;
-	
-	this.StartPageContent = gameDataObject.settings.startPageContent;
-}
-
-Game.prototype.CurrentPage = function() // { "board":[], "words":[] }
-{
-	return this._pages[this._currentPage]; 
-};
-
-Game.prototype.NextPage = function() // { "board":[], "words":[] }
-{
-	this._currentPage++;
-	return this.CurrentPage();
-};
-
-Game.prototype.IsOver = function() // boolean
-{
-	return this._currentPage === (this._pages.length - 1);
-};
-
 function PageSession(pageObject)
 {
 	this.WordFound = new Array(pageObject.words.length);
@@ -38,7 +13,6 @@ function PageSession(pageObject)
 	this.Mistakes = 0;
 }
 
-var gameSession; //Game
 var pageSession; //PageSession
 
 var tablePanel; //HTMLElement
@@ -50,8 +24,6 @@ var endPageForm; //HTMLElement
 
 function InitializeDocument()
 {
-	document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
-
 	startPageForm = document.getElementById("startPage");
 	gamePageForm = document.getElementById("gamePage");
 	endPageForm = document.getElementById("endPage");
@@ -65,33 +37,12 @@ function InitializeDocument()
 	document.getElementById("btnClear").onclick = btnClear_onClick;
 	document.getElementById("btnCheck").onclick = btnCheck_onClick;
 	
-	DownloadGameData("EPI-wordhunt1.json", ReadJSON);
+	DownloadGameData("EPI-wordhunt1.json", Game_onLoad);
 }
 
-function DownloadGameData(url, callback)
+function Game_onLoad()
 {
-	var xhttp = new XMLHttpRequest();
-
-    xhttp.callback = callback;
-    xhttp.onload = function() { this.callback.apply(this, this.arguments); };
-    xhttp.onerror = function() { console.error(this.statusText); } ;
-    xhttp.open("GET", url, true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(null);
-}
-
-function ReadJSON()
-{
-	var json = this.responseText;
-	var obj = JSON.parse(json);
-	InitializeGame(obj);
-}
-
-function InitializeGame(gameDataObject)
-{
-	gameSession = new Game(gameDataObject);
-
-	document.getElementById("startPageContent").innerHTML = gameDataObject.settings.startPageContent;
+	document.getElementById("startPageContent").innerHTML = gameSession.Settings.startPageContent;
 
 	startPageForm.style.display = "";
 }
@@ -133,8 +84,8 @@ function ClearPage()
 function EndGame()
 {
 	ClearPage();
-	gamePageForm.style.display = "none";
-	endPageForm.style.display = "";
+	SetElementVisibility(gamePageForm, false);
+	SetElementVisibility(endPageForm, true);
 }
 
 function GetCell(y, x) //HTMLElement
@@ -267,9 +218,9 @@ function UpdatePageLabels()
 function UpdateNextButtonVisibility()
 {
 	if (pageSession.WordFound.indexOf(false) > -1)
-		document.getElementById("btnNext").style.display = "none";
+		SetElementVisibility(document.getElementById("btnNext"), false); 
 	else
-		document.getElementById("btnNext").style.display = "";
+		SetElementVisibility(document.getElementById("btnNext"), true); 
 }
 
 //#region Event Listeners
@@ -305,15 +256,9 @@ function btnClear_onClick(e)
 
 function btnStartGame_onClick(e)
 {
-	startPageForm.style.display = "none";
-	gamePageForm.style.display = "";
+	SetElementVisibility(startPageForm, false);
+	SetElementVisibility(gamePageForm, true);
 
 	DrawPage(gameSession.NextPage());
 }
-
-window.onload = function(e)
-{
-	InitializeDocument();
-};
-
 //#endregion

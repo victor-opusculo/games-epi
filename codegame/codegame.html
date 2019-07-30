@@ -4,7 +4,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link type="text/css" rel="stylesheet" href="../_common_/common.css"/>
 		<link type="text/css" rel="stylesheet" href="codegame.css"/>
-		<script defer src="codegame.js"></script>
+		<script src="../_common_/common.js"></script>
+		<script src="codegame.js"></script>
 		<script>
 		/*
 			window.onload = () =>
@@ -25,6 +26,9 @@
 	</head>
 	<body>
 		<main>
+			<div id="loadingIcon" style="text-align: center;">
+				<img src="../_common_/pics/loading.gif" alt="Carregando..."/>
+			</div>
 			<form id="startForm" style="display: none;">
 				<h1>Jogo dos Códigos</h1>
 				<div style="text-align: center;">
@@ -47,6 +51,7 @@
 			</form>
 			<form id="endForm" style="display: none;">
 				<h1>Jogo dos Códigos</h1>
+				<label style="text-align: center;">Você completou o Jogo dos Códigos.</label>
 			</form>
 			
 		</main>

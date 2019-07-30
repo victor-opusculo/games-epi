@@ -51,7 +51,8 @@ main
 {
     display: block;
     padding: 0;
-    min-height: calc(100vh - 278px); /* space filler for "Sticky footer" */
+    margin: 30px 0 0 0;
+    min-height: calc(100vh - 308px); /* space filler for "Sticky footer" */
 }
 
 footer

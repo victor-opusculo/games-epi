@@ -1,30 +1,3 @@
-function Game(gameDataObject)
-{
-	this._gameData = gameDataObject; // expects object { settings: {}, pages: [ { paragraphs: [ { lines: [ { content: [ ***text*** ] } ] } ] } ] } /;
-	this._currentPage = -1;
-	this._pages = gameDataObject.pages;
-	
-	this.Title = gameDataObject.settings.title;
-}
-
-Game.prototype.CurrentPage = function() // { paragraphs: [] }
-{
-	return this._pages[this._currentPage]; 
-};
-
-Game.prototype.NextPage = function() // { paragraphs: [] }
-{
-	this._currentPage++;
-	return this.CurrentPage();
-};
-
-Game.prototype.IsOver = function() // boolean
-{
-	return this._currentPage === (this._pages.length - 1);
-};
-
-var gameSession; //Game
-
 var startForm; //HTMLElement (form)
 var gameForm;  //HTMLElement (form)
 var endForm; //HTMLElement (form)
@@ -38,8 +11,6 @@ function IsLetter(c) // boolean
 
 function InitializeDocument() 
 {
-	document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
-
 	pagePanel = document.getElementById("pagePanel");
 
 	startForm = document.getElementById("startForm");
@@ -51,39 +22,20 @@ function InitializeDocument()
 	document.getElementById("btnCheck").onclick = btnCheck_onClick;
 	document.getElementById("btnShowAnswer").onclick = btnShowAnswer_onClick;
 
-	DownloadGameData("EPI-codegame.json", ReadJSON);
+	DownloadGameData("EPI-codegame.json", Game_onLoad);
 }
 
-function DownloadGameData(url, callback)
-{
-	var xhttp = new XMLHttpRequest();
 
-    xhttp.callback = callback;
-    xhttp.onload = function() { this.callback.apply(this, this.arguments); };
-    xhttp.onerror = function() { console.error(this.statusText); } ;
-    xhttp.open("GET", url, true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(null);
-}
-
-function ReadJSON()
+function Game_onLoad()
 {
-	var json = this.responseText;
-	var obj = JSON.parse(json);
-	InitializeGame(obj);
-}
-
-function InitializeGame(gameDataObject)
-{
-	gameSession = new Game(gameDataObject);
-	SetFormVisibility(startForm, true);
+	SetElementVisibility(startForm, true);
 }
 
 function EndGame()
 {
 	ClearPage();
-	SetFormVisibility(gameForm, false);
-	SetFormVisibility(endForm, true);
+	SetElementVisibility(gameForm, false);
+	SetElementVisibility(endForm, true);
 }
 
 function ClearPage()
@@ -206,17 +158,12 @@ function SetNextButtonVisibility(state)
 	document.getElementById("btnNext").onclick = state ? btnNext_onClick : undefined;
 }
 
-function SetFormVisibility(formReference, state)
-{
-	formReference.style.display = state ? "" : "none";
-}
-
 //#region Event listeners
 function btnStartGame_onClick(e)
 {
 	DrawPage(gameSession.NextPage());
-	SetFormVisibility(startForm, false);
-	SetFormVisibility(gameForm, true);
+	SetElementVisibility(startForm, false);
+	SetElementVisibility(gameForm, true);
 }
 
 function btnNext_onClick(e)
@@ -243,8 +190,4 @@ function btnCheck_onClick(e)
 	SetNextButtonVisibility(VerifyInputs())
 }
 
-window.onload = function(e)
-{
-	InitializeDocument();
-};
 //#endregion
