@@ -13,6 +13,7 @@ function PageSession(pageObject)
 	this.Mistakes = 0;
 }
 
+var gameSession; //Game
 var pageSession; //PageSession
 
 var tablePanel; //HTMLElement
@@ -37,11 +38,12 @@ function InitializeDocument()
 	document.getElementById("btnClear").onclick = btnClear_onClick;
 	document.getElementById("btnCheck").onclick = btnCheck_onClick;
 	
-	DownloadGameData("EPI-wordhunt1.json", Game_onLoad);
+	CommonScript.DownloadGameData("EPI-wordhunt1.json", Game_onLoad);
 }
 
-function Game_onLoad()
+function Game_onLoad(e)
 {
+	gameSession = e.gameSession;
 	document.getElementById("startPageContent").innerHTML = gameSession.Settings.startPageContent;
 
 	startPageForm.style.display = "";
@@ -84,8 +86,8 @@ function ClearPage()
 function EndGame()
 {
 	ClearPage();
-	SetElementVisibility(gamePageForm, false);
-	SetElementVisibility(endPageForm, true);
+	CS.SetElementVisibility(gamePageForm, false);
+	CS.SetElementVisibility(endPageForm, true);
 }
 
 function GetCell(y, x) //HTMLElement
@@ -218,9 +220,9 @@ function UpdatePageLabels()
 function UpdateNextButtonVisibility()
 {
 	if (pageSession.WordFound.indexOf(false) > -1)
-		SetElementVisibility(document.getElementById("btnNext"), false); 
+		CS.SetElementVisibility(document.getElementById("btnNext"), false); 
 	else
-		SetElementVisibility(document.getElementById("btnNext"), true); 
+		CS.SetElementVisibility(document.getElementById("btnNext"), true); 
 }
 
 //#region Event Listeners
@@ -256,8 +258,8 @@ function btnClear_onClick(e)
 
 function btnStartGame_onClick(e)
 {
-	SetElementVisibility(startPageForm, false);
-	SetElementVisibility(gamePageForm, true);
+	CS.SetElementVisibility(startPageForm, false);
+	CS.SetElementVisibility(gamePageForm, true);
 
 	DrawPage(gameSession.NextPage());
 }

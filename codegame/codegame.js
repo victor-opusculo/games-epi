@@ -1,3 +1,5 @@
+
+var gameSession; //Game
 var startForm; //HTMLElement (form)
 var gameForm;  //HTMLElement (form)
 var endForm; //HTMLElement (form)
@@ -22,20 +24,21 @@ function InitializeDocument()
 	document.getElementById("btnCheck").onclick = btnCheck_onClick;
 	document.getElementById("btnShowAnswer").onclick = btnShowAnswer_onClick;
 
-	DownloadGameData("EPI-codegame.json", Game_onLoad);
+	CommonScript.DownloadGameData("EPI-codegame.json", Game_onLoad);
 }
 
 
-function Game_onLoad()
+function Game_onLoad(e)
 {
-	SetElementVisibility(startForm, true);
+	gameSession = e.gameSession;
+	CS.SetElementVisibility(startForm, true);
 }
 
 function EndGame()
 {
 	ClearPage();
-	SetElementVisibility(gameForm, false);
-	SetElementVisibility(endForm, true);
+	CS.SetElementVisibility(gameForm, false);
+	CS.SetElementVisibility(endForm, true);
 }
 
 function ClearPage()
@@ -162,8 +165,8 @@ function SetNextButtonVisibility(state)
 function btnStartGame_onClick(e)
 {
 	DrawPage(gameSession.NextPage());
-	SetElementVisibility(startForm, false);
-	SetElementVisibility(gameForm, true);
+	CS.SetElementVisibility(startForm, false);
+	CS.SetElementVisibility(gameForm, true);
 }
 
 function btnNext_onClick(e)
