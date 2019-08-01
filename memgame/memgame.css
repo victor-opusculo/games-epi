@@ -1,0 +1,19 @@
+form
+{
+  max-width: 1200px;
+}
+
+.piece
+{
+  display: inline-block;
+  color: transparent;
+  padding: 0;
+  margin: 5px;
+  border: 1px solid dimgray;
+  height: 210px;
+  width: 130px;
+  cursor: pointer;
+}
+
+.piece:hover { background-color: lightgray; }
+.piece:active { background-color: darkgray; }
