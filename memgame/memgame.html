@@ -7,7 +7,7 @@
 		<link type="text/css" rel="stylesheet" href="memgame.css"/>
 		<script src="../_common_/common.js"></script>
 		<script src="memgame.js"></script>
-		<title>Caça-palavras</title>
+		<title>Jogo da Memória</title>
 	</head>
 	<body>
 		<main>
@@ -15,14 +15,18 @@
 				<img src="../_common_/pics/loading.gif" alt="Carregando..."/>
 			</div>
 			<form id="startForm" style="display: none;">
-				<h1>Jogo de Memória</h1>
+				<h1>Jogo da Memória</h1>
 				<label id="startPageContent"></label>
 				<div style="text-align: center;"><input type="button" id="btnStartGame" value="Iniciar"/></div>
 			</form>
 			<form id="gameForm" style="display: none;">
-				<h1>Jogo de Memória</h1>
+				<h1>Jogo da Memória</h1>
 				<div id="pieceBoard" style="text-align: center;">
-
+					<!--DOM-->
+				</div>
+				<div id="buttonsPanel" style="text-align: center;">
+					<input type="button" id="btnRestart" value="Reiniciar Jogo"/>
+					<input type="button" id="btnNext" value="Próximo Jogo" style="display: none;"/>
 				</div>
 			</form>
 			

@@ -13,6 +13,8 @@ form
   height: 210px;
   width: 130px;
   cursor: pointer;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .piece:hover { background-color: lightgray; }

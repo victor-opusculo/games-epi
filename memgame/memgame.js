@@ -1,14 +1,12 @@
 function PageSession(pageObject)
 {
     this._pageObject = pageObject;
-    this.allPieces = [];
+    this.InPagePieceIndexes = [];
 
     for (let i = 0; i < pageObject.pieces.length; i++)
     {
-        const piece = pageObject.pieces[i];
-        piece.id = i;
-        this.allPieces.push(piece);
-        this.allPieces.push(piece);
+        this.InPagePieceIndexes.push(i);
+        this.InPagePieceIndexes.push(i);
     }
         
     this.firstPieceElementSelected; //HTMLElement
@@ -38,6 +36,8 @@ function InitializeDocument()
     pieceBoard = document.getElementById("pieceBoard");
 
     document.getElementById("btnStartGame").onclick = btnStartGame_onClick;
+    document.getElementById("btnRestart").onclick = btnRestart_onClick;
+    document.getElementById("btnNext").onclick = btnNext_onClick;
 
     CommonScript.DownloadGameData("EPI-memgame1.json", Game_onLoad);
 }
@@ -46,14 +46,21 @@ function DrawPage(pageObject)
 {
     pageSession = new PageSession(pageObject);
     
-    pageSession.allPieces = pageSession.allPieces.randomizeItems();
+    pageSession.InPagePieceIndexes = pageSession.InPagePieceIndexes.randomizeItems();
 
-    for (let i = 0; i < pageSession.allPieces.length; i++)
+    for (let i = 0; i < pageSession.InPagePieceIndexes.length; i++)
     {
-        const piece = pageSession.allPieces[i];
+        const pieceObject = gameSession.CurrentPage().pieces[pageSession.InPagePieceIndexes[i]];
+        
         let pieceElement = document.createElement("div");
+        let picture = document.createElement("img");
+        picture.src = pieceObject.picture;
+        picture.alt = pieceObject.caption;
+        CS.SetElementVisibility(picture, false);
+        pieceElement.appendChild(picture);
+
         pieceElement.className = "piece";
-        pieceElement.setAttribute("data-id", piece.id);
+        pieceElement.setAttribute("data-id", pageSession.InPagePieceIndexes[i]);
         pieceElement.onclick = Piece_onClick;
 
         pieceBoard.appendChild(pieceElement);
@@ -64,6 +71,7 @@ function ClearPage()
 {
     while (pieceBoard.firstChild) pieceBoard.removeChild(pieceBoard.firstChild);
     pageSession = undefined;
+    SetNextButtonVisibility(false);
 }
 
 function Game_onLoad(e)
@@ -74,8 +82,45 @@ function Game_onLoad(e)
 
 function ResetPiece(pieceElement)
 {
-    pieceElement.style.backgroundImage = "";
+    CS.SetElementVisibility(pieceElement.querySelector("img"), false);
     pieceElement.onclick = Piece_onClick;
+}
+
+function SelectPiece(pElement)
+{
+    const pieceElement = pElement;
+    const pieceID = pieceElement.getAttribute("data-id");
+
+    CS.SetElementVisibility(pieceElement.querySelector("img"), true);  //show piece picture
+ 
+
+    if (!pageSession.firstPieceElementSelected) pageSession.firstPieceElementSelected = pieceElement; //first piece from the pair selected? 
+    else if (pageSession.firstPieceElementSelected !== pieceElement) //second piece from the pair selected?
+    {
+        if (pageSession.firstPieceElementSelected.getAttribute("data-id") === pieceID)
+        {
+             pageSession.score++;
+             MarkCorrectPair(pieceElement, pageSession.firstPieceElementSelected);
+        }
+        else
+        {
+            ResetIncorrectPair(pieceElement, pageSession.firstPieceElementSelected)            
+        }
+        pageSession.firstPieceElementSelected = undefined;
+    }
+}
+
+function MarkCorrectPair(piece1Element, piece2Element)
+{
+    piece1Element.onclick = piece2Element.onclick = undefined;
+    piece1Element.style.border = piece2Element.style.border = "2px solid green";
+}
+
+function ResetIncorrectPair(piece1Element, piece2Element)
+{
+    piece1Element.onclick = piece2Element.onclick = undefined;
+    setTimeout(ResetPiece, gameSession.Settings.resetPieceTimeout, piece1Element);
+    setTimeout(ResetPiece, gameSession.Settings.resetPieceTimeout, piece2Element);
 }
 
 Array.prototype.randomizeItems = function() //returns new Array
@@ -95,6 +140,13 @@ Array.prototype.randomizeItems = function() //returns new Array
     return finalSequence;
 };
 
+function SetNextButtonVisibility(state)
+{
+    let btn = document.getElementById("btnNext");
+    btn.disabled = !state;
+    CS.SetElementVisibility(btn, state);
+}
+
 //#region Event listenters
 
 function btnStartGame_onClick(e)
@@ -104,38 +156,28 @@ function btnStartGame_onClick(e)
     CS.SetElementVisibility(gameForm, true);
 }
 
+function btnRestart_onClick(e)
+{
+    ClearPage();
+    DrawPage(gameSession.CurrentPage());
+}
+
+function btnNext_onClick(e)
+{
+    ClearPage();
+    if (!gameSession.IsOver())
+        DrawPage(gameSession.NextPage());
+    else
+    {
+        CS.SetElementVisibility(gameForm, false);
+        CS.SetElementVisibility(endForm, true);
+    }
+}
+
 function Piece_onClick(e)
 {
-    const pieceElement = e.target;
-    const pieceID = pieceElement.getAttribute("data-id");
-    const pieceObject = gameSession.CurrentPage().pieces[pieceID];
-
-    pieceElement.style.backgroundImage = "url(" + pieceObject.picture + ")";
-
-    if (!pageSession.firstPieceElementSelected) pageSession.firstPieceElementSelected = pieceElement;
-    else if (pageSession.firstPieceElementSelected !== pieceElement)
-    {
-        if (pageSession.firstPieceElementSelected.getAttribute("data-id") === pieceID)
-        {
-             pageSession.score++;
-             pieceElement.onclick = undefined;
-             pageSession.firstPieceElementSelected.onclick = undefined;
-        }
-        else
-        {
-            let fpes = pageSession.firstPieceElementSelected;
-            fpes.onclick = undefined;
-            pieceElement.onclick = undefined;
-
-            setTimeout(ResetPiece, gameSession.Settings.resetPieceTimeout, fpes);
-            setTimeout(ResetPiece, gameSession.Settings.resetPieceTimeout, pieceElement);
-            
-        }
-        pageSession.firstPieceElementSelected = undefined;
-    }
-
-    if (pageSession.IsOver()) alert("Terminado!");
-        
+    SelectPiece(this);
+    if (pageSession.IsOver()) SetNextButtonVisibility(true);
 }
 
 //#endregion

@@ -23,6 +23,7 @@ function InitializeDocument()
 	document.getElementById("btnClear").onclick = btnClear_onClick;
 	document.getElementById("btnCheck").onclick = btnCheck_onClick;
 	document.getElementById("btnShowAnswer").onclick = btnShowAnswer_onClick;
+	document.getElementById("btnNext").onclick = btnNext_onClick;
 
 	CommonScript.DownloadGameData("EPI-codegame.json", Game_onLoad);
 }
@@ -158,7 +159,7 @@ function VerifyInputs() // boolean
 function SetNextButtonVisibility(state)
 {
 	document.getElementById("btnNext").style.display = state ? "" : "none";
-	document.getElementById("btnNext").onclick = state ? btnNext_onClick : undefined;
+	document.getElementById("btnNext").disabled = !state;
 }
 
 //#region Event listeners

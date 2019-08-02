@@ -219,10 +219,17 @@ function UpdatePageLabels()
 
 function UpdateNextButtonVisibility()
 {
+	let btn = document.getElementById("btnNext");
 	if (pageSession.WordFound.indexOf(false) > -1)
-		CS.SetElementVisibility(document.getElementById("btnNext"), false); 
+	{
+		btn.disabled = true;
+		CS.SetElementVisibility(btn, false); 
+	}
 	else
-		CS.SetElementVisibility(document.getElementById("btnNext"), true); 
+	{
+		btn.disabled = false;
+		CS.SetElementVisibility(btn, true); 
+	}	
 }
 
 //#region Event Listeners
