@@ -1,0 +1,41 @@
+form
+{
+    max-width: 1200px;
+}
+
+table
+{
+    border-collapse: collapse;
+}
+
+td:not(:empty)
+{
+    border: 1px solid dimgray;
+}
+
+td.number
+{
+    border: none;
+}
+
+td input[type="text"]
+{
+    font-size: large;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: 0;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+td input[type="text"]:hover { background-color: lightgray; }
+td input[type="text"]:focus { background-color: darkgray; }
+.correct { background-color: rgb(64, 226, 113) !important; }
+
+#buttonsPanel { margin-top: 30px; }
+
+@media screen and (min-width: 1000px)
+{
+    #panels { display: flex; }
+}

@@ -104,6 +104,7 @@ function DrawInputField(word, lineSection)
 			inputBox.type = "text";
 			inputBox.maxLength = 1;
 			inputBox.setAttribute("data-char", word[c]);
+			inputBox.onfocus = CharInput_onFocus;
 			
 			lineSection.appendChild(inputBox);
 	}
@@ -156,9 +157,8 @@ function VerifyInputs() // boolean
 		
 }
 
-function SetNextButtonVisibility(state)
+function SetNextButtonEnabled(state)
 {
-	document.getElementById("btnNext").style.display = state ? "" : "none";
 	document.getElementById("btnNext").disabled = !state;
 }
 
@@ -181,7 +181,7 @@ function btnNext_onClick(e)
 function btnClear_onClick(e)
 {
 	ClearInputs();
-	SetNextButtonVisibility(false);
+	SetNextButtonEnabled(false);
 }
 
 function btnShowAnswer_onClick(e)
@@ -191,7 +191,12 @@ function btnShowAnswer_onClick(e)
 
 function btnCheck_onClick(e)
 {
-	SetNextButtonVisibility(VerifyInputs())
+	SetNextButtonEnabled(VerifyInputs())
+}
+
+function CharInput_onFocus(e)
+{
+	this.select();
 }
 
 //#endregion

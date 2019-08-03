@@ -71,7 +71,7 @@ function ClearPage()
 {
     while (pieceBoard.firstChild) pieceBoard.removeChild(pieceBoard.firstChild);
     pageSession = undefined;
-    SetNextButtonVisibility(false);
+    SetNextButtonEnabled(false);
 }
 
 function Game_onLoad(e)
@@ -140,11 +140,10 @@ Array.prototype.randomizeItems = function() //returns new Array
     return finalSequence;
 };
 
-function SetNextButtonVisibility(state)
+function SetNextButtonEnabled(state)
 {
     let btn = document.getElementById("btnNext");
     btn.disabled = !state;
-    CS.SetElementVisibility(btn, state);
 }
 
 //#region Event listenters
@@ -177,7 +176,7 @@ function btnNext_onClick(e)
 function Piece_onClick(e)
 {
     SelectPiece(this);
-    if (pageSession.IsOver()) SetNextButtonVisibility(true);
+    if (pageSession.IsOver()) SetNextButtonEnabled(true);
 }
 
 //#endregion

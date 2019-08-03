@@ -24,6 +24,7 @@ input[type="text"]
     text-align: center;
     border: 1px solid dimgray;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 input[type="text"]:focus { background-color: lightgray; }

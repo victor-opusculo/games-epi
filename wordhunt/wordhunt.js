@@ -74,7 +74,7 @@ function DrawPage(pageObject)
 
 	pageSession = new PageSession(cpage);
 	UpdatePageLabels();
-	UpdateNextButtonVisibility();
+	UpdateNextButtonState();
 }
 
 function ClearPage()
@@ -158,7 +158,7 @@ function VerifyAnswer()
 	pageSession.Mistakes = tableElement.querySelectorAll("td.checked").length - correclyMarkedCells.length; // Calculate mistakes
 
 	UpdatePageLabels();
-	UpdateNextButtonVisibility();
+	UpdateNextButtonState();
 }
 
 function ShowAnswer()
@@ -217,19 +217,13 @@ function UpdatePageLabels()
 	document.getElementById("lblMistakes").innerText = pageSession.Mistakes;
 }
 
-function UpdateNextButtonVisibility()
+function UpdateNextButtonState()
 {
 	let btn = document.getElementById("btnNext");
 	if (pageSession.WordFound.indexOf(false) > -1)
-	{
 		btn.disabled = true;
-		CS.SetElementVisibility(btn, false); 
-	}
 	else
-	{
-		btn.disabled = false;
-		CS.SetElementVisibility(btn, true); 
-	}	
+		btn.disabled = false;	
 }
 
 //#region Event Listeners

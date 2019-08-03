@@ -48,6 +48,13 @@ input[type="button"]
 input[type="button"]:hover { background-color: #009600; }
 input[type="button"]:active { box-shadow: inset 0px 7px 10px rgba(0,0,0,0.2); }
 
+input[type="button"]:disabled
+{
+    background-color:dimgray;
+    border: 1px solid dimgray;
+    color: gray;
+}
+
 main
 {
     display: block;

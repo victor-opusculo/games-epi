@@ -4,10 +4,10 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<link type="text/css" rel="stylesheet" href="../_common_/common.css"/>
-		<link type="text/css" rel="stylesheet" href="memgame.css"/>
+		<link type="text/css" rel="stylesheet" href="crosswords.css"/>
 		<script src="../_common_/common.js"></script>
-		<script src="memgame.js"></script>
-		<title>Jogo da Memória</title>
+		<script defer src="crosswords.js"></script>
+		<title>Palavras Cruzadas</title>
 	</head>
 	<body>
 		<main>
@@ -15,24 +15,37 @@
 				<img src="../_common_/pics/loading.gif" alt="Carregando..."/>
 			</div>
 			<form id="startForm" style="display: none;">
-				<h1>Jogo da Memória</h1>
+				<h1>Palavras Cruzadas</h1>
 				<label id="startPageContent"></label>
 				<div style="text-align: center;"><input type="button" id="btnStartGame" value="Iniciar"/></div>
 			</form>
 			<form id="gameForm" style="display: none;">
-				<h1>Jogo da Memória</h1>
-				<div id="pieceBoard" style="text-align: center;">
-					<!--DOM-->
+				<h1>Palavras Cruzadas</h1>
+				<div id="panels">
+					<div id="tipsPanel">
+						<p><strong>Vertical:</strong></p>
+						<label id="lblWordTipsV"></label>
+						<p><strong>Horizontal:</strong></p>
+						<label id="lblWordTipsH"></label>
+					</div>
+					<div id="tablePanel" style="text-align: center;">
+						<!--DOM-->
+					</div>
 				</div>
+				
 				<div id="buttonsPanel" style="text-align: center;">
-					<input type="button" id="btnRestart" value="Reiniciar Jogo"/>
+					
+					<input type="button" id="btnClear" value="Limpar Tudo" /><br/>
+					<input type="button" id="btnShowAnswers" value="Ver Solução" />
+					<input type="button" id="btnShowChar" value="Ver Letra" /><br/>
+					<input type="button" id="btnVerify" value="Conferir" /><br/>
 					<input type="button" id="btnNext" value="Prosseguir" disabled/>
 				</div>
 			</form>
 			
 			<form id="endForm" style="display: none;">
 				<h1>Jogo terminado!</h1>
-				<label style="text-align: center;">Você completou o jogo da memória</label>
+				<label style="text-align: center;">Você completou o jogo de palavras cruzadas</label>
 			</form>
 		</main>
 
