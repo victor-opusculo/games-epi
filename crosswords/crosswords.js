@@ -1,3 +1,7 @@
+/* =======================================================================================================
+ * Jogo de Palavras Cruzadas
+ * Desenvolvido por Victor Opusculo para a Escola do Parlamento de Itapevi - Câmara Municipal de Itapevi
+ * =======================================================================================================*/
 
 var gameSession;
 var tableElement;
@@ -18,6 +22,7 @@ function InitializeDocument()
     document.getElementById("btnClear").onclick = btnClear_onClick;
     document.getElementById("btnShowAnswers").onclick = btnShowAnswers;
     document.getElementById("btnShowChar").onclick = btnShowChar_onClick;
+    SetNextButtonEnabled(false);
 
     document.body.onclick = documentBody_onClick;
 

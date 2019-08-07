@@ -9,18 +9,31 @@
 			a
 			{
 				display: block;
-				margin: 10px;
 				font-size: 110%;
 				text-align: center;
+				width: 300px;
+				margin-left: auto;
+				margin-right: auto;
 				padding: 3px 50px 3px 50px;
-				border: solid 1px #BBB;
-				border-radius: 5px;
-				font-weight: bold;
+				border-left: solid 1px #BBB;
+				border-right: solid 1px #BBB;
+				border-bottom: 1px solid #bbb;
 				color: black;
 				background-color: #EEE;
 				text-decoration: none;
-				box-shadow: inset 0px -7px 10px 0 rgba(0, 0, 0, 0.12);
-				transition-duration: 0.1s;
+			}
+
+     		 a:first-of-type
+			{
+				border-radius: 10px 10px 0 0;
+					border-top: 1px solid #BBB;
+				border-bottom: 1px solid #bbb;
+			}
+
+			a:last-of-type
+			{
+				border-radius: 0 0 10px 10px;
+				border-bottom: 1px solid #BBB;
 			}
 			
 			a:hover
@@ -30,9 +43,9 @@
 			
 			a:active
 			{
-				font-size: 109%;
+				
 				background-color: #DDD;
-				box-shadow: inset 0px 7px 10px 0 rgba(0, 0, 0, 0.12);
+				box-shadow: inset 0px 1px 4px 0 rgba(0, 0, 0, 0.12);
 			}
 		</style>
 	</head>
@@ -45,6 +58,7 @@
 					<a href="codegame/codegame.html">Jogo dos Códigos</a>
 					<a href="memgame/memgame.html">Jogo da Memória</a>
 					<a href="crosswords/crosswords.html">Palavras Cruzadas</a>
+					<a href="recycling/recycling.html">Jogo da Reciclagem</a>
 				</div>
 			</form>
 		</main>

@@ -1,0 +1,26 @@
+{
+    "settings":
+    {
+
+    },
+
+    "pages":
+    [
+        {
+            "pieces":
+            [
+                {"caption":"Régua", "picture":"pics/pieces/ruler.png", "destinationReceptacle":0},
+                {"caption":"Livro", "picture":"pics/pieces/book.png", "destinationReceptacle":1},
+                {"caption":"Resto de comida", "picture":"pics/pieces/foodwaste.png", "destinationReceptacle":3}
+            ],
+            "receptacles":
+            [
+                {"caption":"Plástico", "picture":"pics/receptacles/plastic.png"},
+                {"caption":"Papel", "picture":"pics/receptacles/paper.png"},
+                {"caption":"Vidro", "picture":"pics/receptacles/glass.png"},
+                {"caption":"Orgânico", "picture":"pics/receptacles/organic.png"},
+                {"caption":"Metal", "picture":"pics/receptacles/metal.png"}
+            ]
+        }
+    ]
+}

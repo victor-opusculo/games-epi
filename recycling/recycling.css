@@ -1,0 +1,11 @@
+form
+{
+    max-width: initial;
+    min-width: initial;
+    width: 800px;
+}
+
+canvas
+{
+    border: 1px solid darkgray;
+}

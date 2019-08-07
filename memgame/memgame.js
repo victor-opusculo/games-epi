@@ -1,3 +1,8 @@
+/* =======================================================================================================
+ * Jogo da Memória
+ * Desenvolvido por Victor Opusculo para a Escola do Parlamento de Itapevi - Câmara Municipal de Itapevi
+ * =======================================================================================================*/
+
 function PageSession(pageObject)
 {
     this._pageObject = pageObject;
@@ -38,6 +43,7 @@ function InitializeDocument()
     document.getElementById("btnStartGame").onclick = btnStartGame_onClick;
     document.getElementById("btnRestart").onclick = btnRestart_onClick;
     document.getElementById("btnNext").onclick = btnNext_onClick;
+    SetNextButtonEnabled(false);
 
     CommonScript.DownloadGameData("EPI-memgame1.json", Game_onLoad);
 }

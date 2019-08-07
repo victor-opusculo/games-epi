@@ -6,7 +6,7 @@
 		<link type="text/css" rel="stylesheet" href="../_common_/common.css"/>
 		<link type="text/css" rel="stylesheet" href="crosswords.css"/>
 		<script src="../_common_/common.js"></script>
-		<script defer src="crosswords.js"></script>
+		<script src="crosswords.js"></script>
 		<title>Palavras Cruzadas</title>
 	</head>
 	<body>
@@ -34,12 +34,15 @@
 				</div>
 				
 				<div id="buttonsPanel" style="text-align: center;">
-					
-					<input type="button" id="btnClear" value="Limpar Tudo" /><br/>
-					<input type="button" id="btnShowAnswers" value="Ver Solução" />
-					<input type="button" id="btnShowChar" value="Ver Letra" /><br/>
-					<input type="button" id="btnVerify" value="Conferir" /><br/>
-					<input type="button" id="btnNext" value="Prosseguir" disabled/>
+					<div style="float:left;">
+						<input type="button" id="btnClear" value="Limpar Tudo" />
+						<input type="button" id="btnShowAnswers" value="Ver Solução" />
+						<input type="button" id="btnShowChar" value="Ver Letra" />
+					</div>
+					<div style="float:right;">
+						<input type="button" id="btnVerify" value="Conferir" />
+						<input type="button" id="btnNext" value="Prosseguir" disabled/>
+					</div>
 				</div>
 			</form>
 			

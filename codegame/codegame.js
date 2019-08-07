@@ -1,3 +1,7 @@
+/* =======================================================================================================
+ * Jogo dos Códigos
+ * Desenvolvido por Victor Opusculo para a Escola do Parlamento de Itapevi - Câmara Municipal de Itapevi
+ * =======================================================================================================*/
 
 var gameSession; //Game
 var startForm; //HTMLElement (form)
@@ -24,6 +28,7 @@ function InitializeDocument()
 	document.getElementById("btnCheck").onclick = btnCheck_onClick;
 	document.getElementById("btnShowAnswer").onclick = btnShowAnswer_onClick;
 	document.getElementById("btnNext").onclick = btnNext_onClick;
+	SetNextButtonEnabled(false);
 
 	CommonScript.DownloadGameData("EPI-codegame.json", Game_onLoad);
 }
