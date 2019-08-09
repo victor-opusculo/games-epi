@@ -1,17 +1,19 @@
 //@ts-check
 
+
 const SpriteType = {};
 Object.defineProperty(SpriteType, "Piece", {writable: false, value: 1});
 Object.defineProperty(SpriteType, "Receptacle", {writable: false, value: 0});
 Object.freeze(SpriteType);
 
-function Sprite(src, x, y, type, typeProperties)
+function Sprite(src, x, y, type, typeProperties, onSpriteLoad)
 {	
 	this.x = x;
 	this.y = y;
 
 	this.imageObj = new Image();
 	this.imageObj.src = src;
+	this.imageObj.onload = onSpriteLoad;
 
 	this.type = type;
 	this.typeProperties = typeProperties;
@@ -47,6 +49,8 @@ function Canvas(htmlElement)
 {
 	/** @type {HTMLCanvasElement} */
 	this._element = htmlElement;
+
+	/**@type{CanvasRenderingContext2D} */
 	this._context = this._element.getContext("2d");
 	this._mainLoopInterval = undefined;
 
@@ -135,9 +139,8 @@ Canvas.prototype._addMouseEventListeners = function()
 					canvasobj._dragging = canvasobj.Drawables[i];
 
 					//put selected piece on the top
-					let swap = canvasobj.Drawables[canvasobj.Drawables.length - 1];
-					canvasobj.Drawables[canvasobj.Drawables.length - 1] = canvasobj._dragging;
-					canvasobj.Drawables[i] = swap;
+					canvasobj.Drawables.splice(i, 1);
+					canvasobj.Drawables.push(canvasobj._dragging);
 					break;
 				}
 		}
@@ -164,6 +167,46 @@ Canvas.prototype._addMouseEventListeners = function()
 	}, false);
 }
 
+Canvas.prototype._addTouchEventListeners = function()
+{
+	const canvasobj = this;
+	
+	this._element.addEventListener("touchstart", function(e)
+	{
+		var touch = e.touches[0];
+		var mouseEvent = new MouseEvent("mousedown", { clientX: touch.clientX, clientY: touch.clientY });
+		canvasobj._element.dispatchEvent(mouseEvent);
+	}, false);
+
+	this._element.addEventListener("touchend", function(e)
+	{
+		var mouseEvent = new MouseEvent("mouseup", {});
+		canvasobj._element.dispatchEvent(mouseEvent);
+	}, false);
+
+	this._element.addEventListener("touchmove", function(e)
+	{
+		var touch = e.touches[0];
+		var mouseEvent = new MouseEvent("mousemove", { clientX: touch.clientX, clientY: touch.clientY });
+		canvasobj._element.dispatchEvent(mouseEvent);
+	}, false);
+}
+
+//Works only when rendering cycle is off
+Canvas.prototype._drawLoadingText = function()
+{
+	this._context.font = "bold 28px sans-serif";
+	this._context.fillStyle = "#22B14C";
+	this._context.textAlign = "center";
+	this._context.fillText("Carregando", this._element.width / 2, this._element.height / 2);
+}
+
+Canvas.prototype.Prepare = function()
+{
+	this._addMouseEventListeners();
+	this._addTouchEventListeners();
+}
+
 Canvas.prototype.DrawFrame = function(canvasObj)
 {
 	canvasObj.ClearFrame(canvasObj);
@@ -180,20 +223,36 @@ Canvas.prototype.ClearFrame = function(canvasObj)
 Canvas.prototype.StartRendering = function()
 {	
 	this._mainLoopInterval = window.setInterval(this.DrawFrame, 1000 / 30, this);
-	this._addMouseEventListeners();
 };
 
 Canvas.prototype.StopRendering = function()
 {
+	this._context.clearRect(0, 0, this._element.width, this._element.height);
 	if (this._mainLoopInterval) window.clearInterval(this._mainLoopInterval);
 };
+
+Canvas.prototype.DrawPage = function(pageObject)
+{
+	const canvasobj = this;
+
+	var spritesLoaded = 0;
+
+	this._drawLoadingText();
+	this._setPageData(pageObject, function(e)
+	{
+		spritesLoaded++;
+		if (spritesLoaded === canvasobj.Drawables.length) canvasobj.StartRendering();
+	});
+}
 
 Canvas.prototype.ClearPage = function()
 {
 	while(this.Drawables[0]) this.Drawables.pop();
+	this.StopRendering();
+	SetNextButtonEnabled(false);
 };
 
-Canvas.prototype.RenderPage = function(pageObject)
+Canvas.prototype._setPageData = function(pageObject, onSpritesLoad)
 {
 	const canvasobj = this;
 
@@ -206,7 +265,7 @@ Canvas.prototype.RenderPage = function(pageObject)
 	pageObject.receptacles.forEach(function(item, index)
 	{
 		let spriteTypeProperties = {Id: index}
-		let sprite = new Sprite(item.picture, currentSpritePosition.x, currentSpritePosition.y, SpriteType.Receptacle, spriteTypeProperties);
+		let sprite = new Sprite(item.picture, currentSpritePosition.x, currentSpritePosition.y, SpriteType.Receptacle, spriteTypeProperties, onSpritesLoad);
 		canvasobj.Drawables.push(sprite);
 
 		currentSpritePosition.x += XpositionIncrement;
@@ -218,7 +277,7 @@ Canvas.prototype.RenderPage = function(pageObject)
 	pageObject.pieces.forEach(function(item) 
 	{
 		let spriteTypeProperties = {destinationReceptacle: item.destinationReceptacle}
-		let sprite = new Sprite(item.picture, currentSpritePosition.x, currentSpritePosition.y, SpriteType.Piece, spriteTypeProperties);
+		let sprite = new Sprite(item.picture, currentSpritePosition.x, currentSpritePosition.y, SpriteType.Piece, spriteTypeProperties, onSpritesLoad);
 		canvasobj.Drawables.push(sprite);
 
 		currentSpritePosition.x += XpositionIncrement;
@@ -253,13 +312,13 @@ function StartGame()
 	CS.SetElementVisibility(startForm, false);
 	CS.SetElementVisibility(gameForm, true);
 
-	canvasObject.RenderPage(gameSession.NextPage());
-	canvasObject.StartRendering();
+	canvasObject.Prepare();
+	canvasObject.DrawPage(gameSession.NextPage());
 }
 
 function EndGame()
 {
-	canvasObject.StopRendering();
+	canvasObject.ClearPage();
 	CS.SetElementVisibility(gameForm, false);
 	CS.SetElementVisibility(endForm, true);
 }
@@ -279,6 +338,8 @@ function getMousePos(canvasDom, mouseEvent)
 	};
 }
 
+//#region Event listeners
+
 function Game_onLoad(e)
 {
 	gameSession = e.gameSession;
@@ -296,7 +357,9 @@ function btnNext_onClick(e)
 	canvasObject.ClearPage();
 	
 	if (!gameSession.IsOver())
-		canvasObject.RenderPage(gameSession.NextPage());
+		canvasObject.DrawPage(gameSession.NextPage());
 	else
 		EndGame();
 }
+
+//#endregion

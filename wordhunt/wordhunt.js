@@ -34,7 +34,6 @@ function InitializeDocument()
 	tablePanel = document.getElementById("tablePanel");
 	
 	document.getElementById("btnNext").onclick = btnNext_onClick;
-	SetNextButtonEnabled(false);
 	document.getElementById("btnShowAnswer").onclick = btnShowAnswer_onClick;
 	document.getElementById("btnClear").onclick = btnClear_onClick;
 	document.getElementById("btnCheck").onclick = btnCheck_onClick;

@@ -8,4 +8,5 @@ form
 canvas
 {
     border: 1px solid darkgray;
+    touch-action: none;
 }
