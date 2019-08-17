@@ -30,6 +30,7 @@ input[type="text"]
 input[type="text"]:focus { background-color: lightgray; }
 
 .correct { background-color: rgb(64, 226, 113) !important; }
+.incorrect { background-color: rgb(245, 100, 100) !important; }
 
 #buttonsPanel
 {

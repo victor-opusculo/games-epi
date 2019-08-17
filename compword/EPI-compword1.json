@@ -1,0 +1,63 @@
+{
+    "settings":{},
+
+    "pages":
+    [
+        {
+            "words":
+            [
+                {
+                    "string":"VEREADORES", 
+                    "fixedChars":[1,3,6,9], 
+                    "tips":
+                    [
+                        "Eleito pelo povo.",
+                        "Fiscaliza e cria as leis."
+                    ]
+                }
+            ]
+        },
+        {
+            "words":
+            [
+                {
+                    "string":"MOÇÃO",
+                    "fixedChars":null,
+                    "tips":
+                    [
+                        "Instrumento em que a câmara se manifesta sobre determinado assunto.",
+                        "Pode ser de aplauso, apelo ou repúdio."
+                    ]
+                }
+            ]
+        },
+        {
+            "words":
+            [
+                {
+                    "string":"TRIBUNA LIVRE",
+                    "fixedChars":null,
+                    "tips":
+                    [
+                        "Momento da sessão ordinária.",
+                        "Meio democrático pelo qual o cidadão faz sua manifestação por meio de opinião pessoal."
+                    ]
+                }
+            ]
+        },
+        {
+            "words":
+            [
+                {
+                    "string":"PROJETO DE LEI",
+                    "fixedChars":null,
+                    "tips":
+                    [
+                        "Proposta lida em plenário, e debatida pelas comissões.",
+                        "Se aprovado segue para ser sancionado pelo prefeito"
+                    ]
+                }
+            ]
+        }
+    ]
+}

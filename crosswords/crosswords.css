@@ -33,6 +33,7 @@ td input[type="text"]
 td input[type="text"]:hover { background-color: lightgray; }
 td input[type="text"]:focus { background-color: darkgray; }
 .correct { background-color: rgb(64, 226, 113) !important; }
+.incorrect { background-color: rgb(245, 100, 100) !important; }
 
 #buttonsPanel 
 { 

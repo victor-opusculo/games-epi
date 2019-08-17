@@ -150,11 +150,15 @@ function VerifyInputs() // boolean
 			if (item.value.localeCompare(item.getAttribute("data-char"), undefined, { sensitivity: 'base' }) === 0)
 			{
 				correctInputs++;
-				item.classList.add("correct");
+				item.className = "correct";
+			}
+			else if(item.value.trim() === "")
+			{
+				item.className = "";
 			}
 			else
 			{
-				item.className = "";
+				item.className = "incorrect";
 			}
 		})(inps[i]);
 

@@ -1,6 +1,5 @@
 //@ts-check
 
-
 const SpriteType = {};
 Object.defineProperty(SpriteType, "Piece", {writable: false, value: 1});
 Object.defineProperty(SpriteType, "Receptacle", {writable: false, value: 0});
@@ -131,7 +130,8 @@ Canvas.prototype._addMouseEventListeners = function()
 	const canvasobj = this;
 	this._element.addEventListener("mousedown", function (e) 
 	{
-		for (let i = 0; i < canvasobj.Drawables.length; i++)
+		//iterate (reverse) over Drawables list
+		for (let i = canvasobj.Drawables.length - 1; i >= 0; i--)
 		{
 			if (canvasobj.Drawables[i].type === SpriteType.Piece)
 				if (canvasobj.Drawables[i].HitTest(getMousePos(canvasobj._element, e)))
