@@ -9,28 +9,28 @@
 		{
 			"pieces":
 			[
-				{ "caption":"Peça 1", "picture":"pics/piece1.jpg" },
-				{ "caption":"Peça 2", "picture":"pics/piece2.jpg" },
-				{ "caption":"Peça 3", "picture":"pics/piece3.jpg" },
-				{ "caption":"Peça 4", "picture":"pics/piece4.jpg" },
-				{ "caption":"Peça 5", "picture":"pics/piece5.jpg" },
-				{ "caption":"Peça 6", "picture":"pics/piece6.jpg" },
-				{ "caption":"Peça 7", "picture":"pics/piece7.jpg" },
-				{ "caption":"Peça 8", "picture":"pics/piece8.jpg" }
+				{ "caption":"Peça 1", "picture":"memgame/pics/piece1.jpg" },
+				{ "caption":"Peça 2", "picture":"memgame/pics/piece2.jpg" },
+				{ "caption":"Peça 3", "picture":"memgame/pics/piece3.jpg" },
+				{ "caption":"Peça 4", "picture":"memgame/pics/piece4.jpg" },
+				{ "caption":"Peça 5", "picture":"memgame/pics/piece5.jpg" },
+				{ "caption":"Peça 6", "picture":"memgame/pics/piece6.jpg" },
+				{ "caption":"Peça 7", "picture":"memgame/pics/piece7.jpg" },
+				{ "caption":"Peça 8", "picture":"memgame/pics/piece8.jpg" }
 			]
 		},
 		
 		{
 			"pieces":
 			[
-				{ "caption":"Peça 1", "picture":"pics/piece1.jpg" },
-				{ "caption":"Peça 2", "picture":"pics/piece2.jpg" },
-				{ "caption":"Peça 3", "picture":"pics/piece3.jpg" },
-				{ "caption":"Peça 4", "picture":"pics/piece4.jpg" },
-				{ "caption":"Peça 5", "picture":"pics/piece5.jpg" },
-				{ "caption":"Peça 6", "picture":"pics/piece6.jpg" },
-				{ "caption":"Peça 7", "picture":"pics/piece7.jpg" },
-				{ "caption":"Peça 8", "picture":"pics/piece8.jpg" }
+				{ "caption":"Peça 1", "picture":"memgame/pics/piece1.jpg" },
+				{ "caption":"Peça 2", "picture":"memgame/pics/piece2.jpg" },
+				{ "caption":"Peça 3", "picture":"memgame/pics/piece3.jpg" },
+				{ "caption":"Peça 4", "picture":"memgame/pics/piece4.jpg" },
+				{ "caption":"Peça 5", "picture":"memgame/pics/piece5.jpg" },
+				{ "caption":"Peça 6", "picture":"memgame/pics/piece6.jpg" },
+				{ "caption":"Peça 7", "picture":"memgame/pics/piece7.jpg" },
+				{ "caption":"Peça 8", "picture":"memgame/pics/piece8.jpg" }
 			]
 		}
 	]

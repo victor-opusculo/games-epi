@@ -26,7 +26,7 @@ function InitializeDocument()
 
     document.body.onclick = documentBody_onClick;
 
-    CommonScript.DownloadGameData("EPI-crosswords1.json", Game_onLoad);
+    CommonScript.DownloadGameData("crosswords/EPI-crosswords1.json", Game_onLoad);
 }
 
 function Game_onLoad(e)

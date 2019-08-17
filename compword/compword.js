@@ -13,7 +13,7 @@ function InitializeDocument()
 
     SetNextButtonEnabled(false);
 
-    CommonScript.DownloadGameData("EPI-compword1.json", Game_onLoad);
+    CommonScript.DownloadGameData("compword/EPI-compword1.json", Game_onLoad);
 }
 
 var gameSession;

@@ -54,12 +54,12 @@
 			<form>
 				<h1>Jogos</h1>
 				<div>
-					<a href="wordhunt/wordhunt.html">Caça-palavras</a>
-					<a href="codegame/codegame.html">Jogo dos Códigos</a>
-					<a href="memgame/memgame.html">Jogo da Memória</a>
-					<a href="crosswords/crosswords.html">Palavras Cruzadas</a>
-					<a href="recycling/recycling.html">Jogo da Reciclagem</a>
-					<a href="compword/compword.html">Acerte as palavras</a>
+					<a href="game.php?id=1">Caça-palavras</a>
+					<a href="game.php?id=6">Jogo dos Códigos</a>
+					<a href="game.php?id=3">Jogo da Memória</a>
+					<a href="game.php?id=4">Palavras Cruzadas</a>
+					<a href="game.php?id=2">Jogo da Reciclagem</a>
+					<a href="game.php?id=5">Acerte as palavras</a>
 				</div>
 			</form>
 		</main>

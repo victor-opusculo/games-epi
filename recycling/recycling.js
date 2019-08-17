@@ -303,7 +303,7 @@ function InitializeDocument()
 	canvasObject = new Canvas(/**@type{HTMLCanvasElement} */(document.getElementById("canvas")));
 
 	//@ts-ignore
-	CommonScript.DownloadGameData("EPI-recycling1.json", Game_onLoad);
+	CommonScript.DownloadGameData("recycling/EPI-recycling1.json", Game_onLoad);
 
 }
 

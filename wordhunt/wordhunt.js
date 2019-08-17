@@ -38,7 +38,7 @@ function InitializeDocument()
 	document.getElementById("btnClear").onclick = btnClear_onClick;
 	document.getElementById("btnCheck").onclick = btnCheck_onClick;
 	
-	CommonScript.DownloadGameData("EPI-wordhunt1.json", Game_onLoad);
+	CommonScript.DownloadGameData("wordhunt/EPI-wordhunt1.json", Game_onLoad);
 }
 
 function Game_onLoad(e)

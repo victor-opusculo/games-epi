@@ -45,7 +45,7 @@ function InitializeDocument()
     document.getElementById("btnNext").onclick = btnNext_onClick;
     SetNextButtonEnabled(false);
 
-    CommonScript.DownloadGameData("EPI-memgame1.json", Game_onLoad);
+    CommonScript.DownloadGameData("memgame/EPI-memgame1.json", Game_onLoad);
 }
 
 function DrawPage(pageObject)

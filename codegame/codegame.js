@@ -30,7 +30,7 @@ function InitializeDocument()
 	document.getElementById("btnNext").onclick = btnNext_onClick;
 	SetNextButtonEnabled(false);
 
-	CommonScript.DownloadGameData("EPI-codegame.json", Game_onLoad);
+	CommonScript.DownloadGameData("codegame/EPI-codegame.json", Game_onLoad);
 }
 
 
@@ -95,7 +95,7 @@ function DrawInputField(word, lineSection)
 		if (IsLetter(word[c]))
 		{
 			var img = document.createElement("img");
-			img.src = "chars/" + word[c].toUpperCase() + ".jpg";
+			img.src = "codegame/chars/" + word[c].toUpperCase() + ".jpg";
 			
 			lineSection.appendChild(img);
 		}

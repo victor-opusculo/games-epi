@@ -1,17 +1,3 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<link type="text/css" rel="stylesheet" href="../_common_/common.css"/>
-		<link type="text/css" rel="stylesheet" href="compword.css"/>
-		<script src="../_common_/common.js"></script>
-		<script src="compword.js"></script>
-	</head>
-	<body>
-		<main>
-			<div id="loadingIcon" style="text-align: center;">
-				<img src="../_common_/pics/loading.gif" alt="Carregando..."/>
-			</div>
 			<form id="startForm" style="display: none;">
 				<h1>Acerte as palavras</h1>
 				<div style="text-align: center;">
@@ -34,16 +20,3 @@
 				<h1>Acerte as palavras</h1>
 				<label style="text-align: center;">Você completou o jogo.</label>
 			</form>
-			
-		</main>
-
-		<div id="Logos">
-			<img src="../_common_/pics/EPI.jpg" alt="Escola do Parlamento de Itapevi" height="130" style="margin-right: 50px;"/>
-			<img src="../_common_/pics/CMI.jpg" alt="Câmara Municipal de Itapevi" height="80"/>
-		</div>
-	
-		<footer>
-					
-		</footer>
-	</body>
-</html>
