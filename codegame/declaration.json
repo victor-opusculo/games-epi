@@ -1,0 +1,6 @@
+{
+	"title":"Jogo dos Códigos",
+	"script":"codegame/codegame.js",
+	"style":"codegame/codegame.css",
+	"HTML": "codegame/codegame.php"
+}

@@ -1,0 +1,6 @@
+{
+	"title":"Placas de Trânsito",
+	"script":"trafficsigns/trafficsigns.js",
+	"style":"trafficsigns/trafficsigns.css",
+	"HTML":"trafficsigns/trafficsigns.php"
+}

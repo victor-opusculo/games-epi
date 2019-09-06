@@ -1,0 +1,6 @@
+{
+	"title":"Caça-palavras",
+	"script":"wordhunt/wordhunt.js",
+	"style":"wordhunt/wordhunt.css",
+	"HTML": "wordhunt/wordhunt.php"
+}

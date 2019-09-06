@@ -1,0 +1,36 @@
+{
+	"pages":
+	[
+		{
+			"background":"trafficsigns/pics/background.jpg",
+			
+			"pieces":
+			[
+				{"caption":"Obras", "picture":"trafficsigns/pics/obras.png", "destinationReceptacle":9, "position":{"x":51, "y": 11}},
+				{"caption":"Proibido buzinar", "picture":"trafficsigns/pics/proibidobuzinar.png", "destinationReceptacle":6, "position":{"x":7, "y": 70}},
+				{"caption":"Altura máxima", "picture":"trafficsigns/pics/alturamaxima.png", "destinationReceptacle":8, "position":{"x":53, "y": 129}},
+				{"caption":"Proibido veículos de tração animal", "picture":"trafficsigns/pics/tracaoanimal.png", "destinationReceptacle":3, "position":{"x":8, "y": 186}},
+				{"caption":"Faixa de pedestres", "picture":"trafficsigns/pics/faixapedestres.png", "destinationReceptacle":4, "position":{"x":53, "y": 241}},
+				{"caption":"Velocidade máxima de 60km/h", "picture":"trafficsigns/pics/velocidademaxima.png", "destinationReceptacle":2, "position":{"x":7, "y": 291}},
+				{"caption":"Travessia de escolares", "picture":"trafficsigns/pics/travessiaescolares.png", "destinationReceptacle":1, "position":{"x":54, "y": 345}},
+				{"caption":"Circulação exclusiva de bicicletas", "picture":"trafficsigns/pics/bicicleta.png", "destinationReceptacle":7, "position":{"x":7, "y": 403}},
+				{"caption":"Lombada", "picture":"trafficsigns/pics/lombada.png", "destinationReceptacle":5, "position":{"x":78, "y": 462}},
+				{"caption":"Parada obrigatória", "picture":"trafficsigns/pics/paradaobrigatoria.png", "destinationReceptacle":0, "position":{"x":6, "y": 518}}
+			],
+			
+			"receptacles":
+			[
+				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":240, "y": 51}}, 
+				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":356, "y": 97}},
+				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":220, "y": 166}},
+				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":730, "y": 180}},
+				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":645, "y": 260}},
+				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":196, "y": 307}},
+				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":298, "y": 357}},
+				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":533, "y": 405}},
+				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":355, "y": 500}},
+				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":632, "y": 524}}
+			]
+		}
+	]
+}

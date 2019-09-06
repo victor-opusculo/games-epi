@@ -1,4 +1,4 @@
-<!--Desenvolvido por Victor Opusculo-->
+﻿<!--Desenvolvido por Victor Opusculo-->
 <?php require("gameloader.php"); ?>
 <!DOCTYPE HTML>
 <html>
@@ -12,7 +12,7 @@
 		<title><?php echo $game["title"]?></title>
 		
 		<script>
-			if (!window.location.search) window.location.href = "index.php";
+			if (!window.location.search) window.location.href = "./";
 		</script>
 	</head>
 	<body>

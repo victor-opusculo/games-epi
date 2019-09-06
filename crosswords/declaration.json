@@ -1,0 +1,6 @@
+{
+	"title":"Palavas Cruzadas",
+	"script":"crosswords/crosswords.js",
+	"style":"crosswords/crosswords.css",
+	"HTML": "crosswords/crosswords.php"
+}

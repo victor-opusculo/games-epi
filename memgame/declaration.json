@@ -1,0 +1,6 @@
+{
+	"title":"Jogo da Memória",
+	"script":"memgame/memgame.js",
+	"style":"memgame/memgame.css",
+	"HTML": "memgame/memgame.php"
+}

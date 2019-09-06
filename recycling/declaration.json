@@ -1,0 +1,6 @@
+{
+	"title":"Jogo da Reciclagem",
+	"script":"recycling/recycling.js",
+	"style":"recycling/recycling.css",
+	"HTML": "recycling/recycling.php"
+}

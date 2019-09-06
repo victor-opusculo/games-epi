@@ -1,13 +1,14 @@
 <?php
 
-$games =
+$gamesDeclarations =
 [
-	1 => ["script" => "wordhunt/wordhunt.js", "style" => "wordhunt/wordhunt.css", "title" => "Caça-palavras", "HTML" => "wordhunt/wordhunt.php"],
-	2 => ["script" => "recycling/recycling.js", "style" => "recycling/recycling.css", "title" => "Jogo da Reciclagem", "HTML" => "recycling/recycling.php"],
-	3 => ["script" => "memgame/memgame.js", "style" => "memgame/memgame.css", "title" => "Jogo da Memória", "HTML" => "memgame/memgame.php"],
-	4 => ["script" => "crosswords/crosswords.js", "style" => "crosswords/crosswords.css", "title" => "Palavras Cruzadas", "HTML" => "crosswords/crosswords.php"],
-	5 => ["script" => "compword/compword.js", "style" => "compword/compword.css", "title" => "Acerte as palavras", "HTML" => "compword/compword.php"],
-	6 => ["script" => "codegame/codegame.js", "style" => "codegame/codegame.css", "title" => "Jogo dos Códigos", "HTML" => "codegame/codegame.php"]
+	1 => "wordhunt/declaration.json",
+	2 => "recycling/declaration.json",
+	3 => "memgame/declaration.json",
+	4 => "crosswords/declaration.json",
+	5 => "compword/declaration.json",
+	6 => "codegame/declaration.json",
+	7 => "trafficsigns/declaration.json"
 ];
 
 function findGame($gameId, $gameList)
@@ -18,12 +19,15 @@ function findGame($gameId, $gameList)
 		$idToFind = 1;
 	}
 
-	return $gameList[$idToFind];
+	$jsonString = file_get_contents($gameList[$idToFind]);
+	$selectedGameDeclaration = json_decode($jsonString, true);
+	
+	return $selectedGameDeclaration;
 }
 
 if ($_GET["id"] !== null)
 {
-	$game = findGame($_GET["id"], $games);
+	$game = findGame($_GET["id"], $gamesDeclarations);
 }
 
 ?>

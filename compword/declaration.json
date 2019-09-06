@@ -1,0 +1,6 @@
+{
+	"title":"Acerte a Palavra",
+	"script":"compword/compword.js",
+	"style":"compword/compword.css",
+	"HTML": "compword/compword.php"
+}
