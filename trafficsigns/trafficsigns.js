@@ -2,6 +2,7 @@ const TrafficSigns = {};
 
 TrafficSigns.SpriteType =
 {
+	Effect: 3,
 	Background: 2,
 	Piece: 1,
 	Receptacle: 0
@@ -108,6 +109,25 @@ TrafficSigns.CanvasManager.prototype =
 			
 			canvasObj.Drawables.push(sprite);
 		});
+	},
+
+	_addCorrectAnswerSprite: function(positionObject)
+	{
+		var canvasObj = this;
+
+		var sprite = new TrafficSigns.Sprite(gameSession.Settings.correctAnswerEffectSprite.picture, positionObject.X, positionObject.Y, TrafficSigns.SpriteType.Effect, null, 
+			function(e)
+			{
+				canvasObj.Drawables.push(sprite);
+			});
+	},
+
+	_drawLoadingText: function()
+	{
+		this._context.font = "bold 28px sans-serif";
+		this._context.fillStyle = "#22B14C";
+		this._context.textAlign = "center";
+		this._context.fillText("Carregando", this._element.width / 2, this._element.height / 2);
 	},
 	
 	_addMouseEventListeners: function()
@@ -231,6 +251,7 @@ TrafficSigns.CanvasManager.prototype =
 							Y: this.Drawables[i].Position.Y + (this.Drawables[i].Size.Height / 2)
 						};
 						this._setPiecePosition(draggedPiece, placedPosition, false);
+						this._addCorrectAnswerSprite(draggedPiece.Position);
 						SetNextButtonEnabled(this.IsPageCompleted());
 						break;
 					}
@@ -259,6 +280,7 @@ TrafficSigns.CanvasManager.prototype =
 	StopRendering: function() 
 	{
 		if (this._drawLoopInterval) window.clearInterval(this._drawLoopInterval);
+		this._clearFrame();
 	},
 	
 	DrawPage: function(pageObject)
@@ -267,6 +289,7 @@ TrafficSigns.CanvasManager.prototype =
 		
 		var spritesLoaded = 0;
 		
+		this._drawLoadingText();
 		this._setPageData(pageObject, function(e)
 		{
 			spritesLoaded++;
@@ -276,6 +299,7 @@ TrafficSigns.CanvasManager.prototype =
 	
 	ClearPage: function()
 	{
+		SetNextButtonEnabled(false);
 		while(this.Drawables[0]) this.Drawables.pop();
 		this.StopRendering();
 	}

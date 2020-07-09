@@ -1,4 +1,9 @@
 {
+	"settings":
+	{
+		"correctAnswerEffectSprite":{"picture":"trafficsigns/pics/correto.png"}
+	},
+
 	"pages":
 	[
 		{
@@ -31,6 +36,20 @@
 				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":355, "y": 500}},
 				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":632, "y": 524}}
 			]
-		}
+		},
+		{
+			"background":"trafficsigns/pics/background2.jpg",
+
+			"pieces":
+			[
+				{"caption":"Lombada", "picture":"trafficsigns/pics/lombada.png", "destinationReceptacle":0, "position":{"x":0, "y": 0}}
+			],
+
+			"receptacles":
+			[
+				{"picture":"trafficsigns/pics/receptacle.png", "position":{"x":240, "y": 460}}
+			]
+		}	
+
 	]
 }
