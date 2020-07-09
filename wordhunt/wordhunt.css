@@ -2,6 +2,10 @@
 #tablePanel, #buttonsPanel { margin: 10px; flex: auto; }
 
 #lblFoundWords { color: green; }
+
+canvas { touch-action: none; }
+
+/*
 #lblMistakes { color: red; }
 
 table { border-collapse: collapse; }
@@ -55,4 +59,4 @@ table td.VWordAnswerEnd
     border-left: 2px solid green;
      border-right: 2px solid green;
     border-bottom: 2px solid green;
-}
+}*/

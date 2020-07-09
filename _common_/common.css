@@ -33,7 +33,7 @@ label { display: block; }
 input[type="button"] 
 {
     margin: 3px;
-    font-size: 100%;
+    font-size: 18pt;
     min-width: 150px;
     height: 40px;
     border: 1px solid #009600;

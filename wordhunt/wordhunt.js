@@ -1,23 +1,296 @@
-﻿/* =======================================================================================================
- * Jogo de Caça-palavras
- * Desenvolvido por Victor Opusculo para a Escola do Parlamento de Itapevi - Câmara Municipal de Itapevi
- * =======================================================================================================*/
+const TileSize = 40;
+const BoardFont = { Color: "#000000", SizeFamily: "20px sans-serif" };
+const FoundWordBgColor = "#22B14C";
+const LetterBgColorOnMouseHover = "lightgray";
 
-function PageSession(pageObject)
+const Wordhunt = {};
+
+Wordhunt.PageSession = function(pageObject)
 {
-	this.WordFound = new Array(pageObject.words.length);
+    this.WordFound = new Array(pageObject.words.length);
 	
 	for (let i = 0; i < this.WordFound.length; i++)
 		this.WordFound[i] = false;
 
-	this.Mistakes = 0;
-}
+};
 
-var gameSession; //Game
-var pageSession; //PageSession
+Wordhunt.CanvasManager = function(canvasElement)
+{
+    this._element = canvasElement;
+    this._renderIntervalId = undefined;
+    this._context = canvasElement.getContext("2d");
 
-var tablePanel; //HTMLElement
-var tableElement; //HTMLElement
+    this._currentPageObject = null;
+    this._currentPageSessionObject = null;
+
+    this._xo = this._xf = this._yo = this._yf = 0;
+    this._gridXo = this._gridXf = this._gridYo = this._gridYf = 0;
+
+    this._dragging = false;
+
+    this._addMouseEventListeners();
+    this._addTouchEventListeners();
+};
+
+Wordhunt.CanvasManager.prototype =
+{
+    constructor: Wordhunt.CanvasManager,
+
+    _drawGrid: function()
+    {
+        let board = this._currentPageObject.board;
+
+        this._context.fillStyle= BoardFont.Color;
+        this._context.font = BoardFont.SizeFamily;
+        for (let l = 0; l < board.length; l++)
+        {
+            for (let c = 0; c < board[l].length; c++)
+            {
+                this._context.fillText(board[l][c], c*TileSize + TileSize*1/3, l*TileSize + TileSize*2/3);
+            }				
+        }
+    },
+
+    _foundWordsDraw: function()
+    {
+        const words = this._currentPageObject.words;
+        const ct = this._context;
+
+        for (let i = 0; i < pageSession.WordFound.length; i++)
+            if (pageSession.WordFound[i])
+            {
+                let triangle = { opp: 0, adj: 0, hip: 0 }
+                triangle.adj = words[i].orient === "h" ? words[i].string.length - 1 : 0;
+                triangle.opp = words[i].orient === "v" ? words[i].string.length - 1 : 0;
+                triangle.hip = Math.sqrt( Math.pow(triangle.adj, 2) + Math.pow(triangle.opp, 2) );
+                
+                let sinAngle = triangle.opp / triangle.hip;
+                let angle = Math.asin(sinAngle);
+                
+                ct.beginPath();
+                
+                let markXorigin = words[i].position.x * TileSize + TileSize / 2;
+                let markYorigin = words[i].position.y * TileSize + TileSize / 2;
+                let markXfinal = words[i].orient === "h" ? (words[i].position.x + words[i].string.length - 1) * TileSize + TileSize / 2 : words[i].orient === "v" ? markXorigin : undefined;
+                let markYfinal = words[i].orient === "v" ? (words[i].position.y + words[i].string.length - 1) * TileSize + TileSize / 2 : words[i].orient === "h" ? markYorigin : undefined;
+                
+                ct.arc(markXorigin, markYorigin, TileSize/2, 0.5*Math.PI+angle, 1.5*Math.PI+angle);
+                ct.arc(markXfinal, markYfinal, TileSize/2, 1.5*Math.PI+angle, 0.5*Math.PI+angle);
+                
+                ct.closePath();
+                ct.fillStyle = FoundWordBgColor;
+                ct.fill();
+            }
+    },
+
+    _drawSelection: function()
+    {
+        let ct = this._context;
+
+        if (this._dragging)
+        {
+            let triangle = { opp: 0, adj: 0, hip: 0 }
+            triangle.adj = this._xf - this._xo;
+            triangle.opp = this._yf - this._yo;
+            triangle.hip = Math.sqrt( Math.pow(triangle.adj, 2) + Math.pow(triangle.opp, 2) );
+            
+            let sinAngle = triangle.opp / triangle.hip;
+            
+            let angle = Math.asin(sinAngle);
+        
+            ct.beginPath();  
+            
+            if (this._xf - this._xo > 0)
+            {
+                ct.arc(this._xo, this._yo, TileSize/2, 0.5*Math.PI+angle, 1.5*Math.PI+angle);
+                ct.arc(this._xf, this._yf, TileSize/2, 1.5*Math.PI+angle, 0.5*Math.PI+angle);
+            }
+            else
+            {
+                ct.arc(this._xo, this._yo, TileSize/2, 1.5*Math.PI-angle, 0.5*Math.PI-angle);
+                ct.arc(this._xf, this._yf, TileSize/2, 0.5*Math.PI-angle, 1.5*Math.PI-angle);
+            }
+            
+            ct.closePath(); 
+            ct.stroke(); 
+        }
+        else
+        {
+            ct.beginPath();
+            ct.arc( this._xf, 
+                    this._yf, 
+                    TileSize / 2, 
+                    0, 
+                    2*Math.PI);
+                    
+            ct.closePath();
+            ct.fillStyle= LetterBgColorOnMouseHover;
+            ct.fill();
+        }
+    },
+
+    _clearFrame: function()
+    {
+        this._context.clearRect(0,0, this._element.width, this._element.height);
+    },
+
+    _drawFrame: function()
+    {
+        this._foundWordsDraw();
+        this._drawSelection();
+        this._drawGrid();
+    },
+
+    _drawLoop: function(canvasManagerObject)
+    {
+        canvasManagerObject._clearFrame();
+
+        if (canvasManagerObject._currentPageObject)
+            canvasManagerObject._drawFrame();
+    },
+
+    _processSelection: function()
+    {
+        let orient = this._gridYf === this._gridYo ? "h" : this._gridXf === this._gridXo ? "v" : undefined;
+				
+        let realXorigin = this._gridXo > this._gridXf ? this._gridXf : this._gridXo;
+        let realYorifin = this._gridYo > this._gridYf ? this._gridYf : this._gridYo;
+        
+        let length;
+        if (orient === "h")
+        {
+            let rawLength = this._gridXf - this._gridXo;
+            rawLength = rawLength > 0 ? rawLength : rawLength * -1;
+            length = rawLength + 1;
+        }
+        else if (orient === "v")
+        {
+            let rawLength = this._gridYf - this._gridYo;
+            rawLength = rawLength > 0 ? rawLength : rawLength * -1;
+            length = rawLength + 1;
+        }
+        
+        if (length && orient)
+        {
+            let foundWord = CheckForWordOn(realXorigin, realYorifin, length, orient, this._currentPageObject);
+        
+            if (foundWord > -1)
+                this._currentPageSessionObject.WordFound[foundWord] = true;
+                
+            UpdateNextButtonState();
+            UpdatePageLabels();
+        }
+    },
+
+    _addMouseEventListeners: function()
+    {
+        let cmObj = this;
+
+        this._element.addEventListener("mousedown", function(e)
+        {
+            let coords = cmObj.GetCanvasMouseCoordinates(e);
+			
+            cmObj._gridXo = Math.floor(coords.x / TileSize);
+            cmObj._gridYo = Math.floor(coords.y / TileSize);
+            
+            cmObj._xo = cmObj._gridXo * TileSize + TileSize/2;
+            cmObj._yo = cmObj._gridYo * TileSize + TileSize/2;
+            cmObj._dragging = true;
+                
+        }, false);
+
+        this._element.addEventListener("mousemove", function(e)
+        {
+            let coords = cmObj.GetCanvasMouseCoordinates(e);
+				
+            cmObj._gridXf = Math.floor(coords.x / TileSize);
+            cmObj._gridYf = Math.floor(coords.y / TileSize);
+            
+            cmObj._xf = cmObj._gridXf * TileSize + TileSize/2;
+            cmObj._yf = cmObj._gridYf * TileSize + TileSize/2;
+
+        }, false);
+
+        this._element.addEventListener("mouseup", function(e)
+        {
+            cmObj._dragging = false;
+
+            if (cmObj._currentPageObject && cmObj._currentPageSessionObject)
+                cmObj._processSelection();
+
+        }, false);
+    },
+
+    _addTouchEventListeners: function()
+	{
+		const canvasobj = this;
+	
+		this._element.addEventListener("touchstart", function(e)
+		{
+			var touch = e.touches[0];
+			var mouseEvent = new MouseEvent("mousedown", { clientX: touch.clientX, clientY: touch.clientY });
+			canvasobj._element.dispatchEvent(mouseEvent);
+		}, false);
+
+		this._element.addEventListener("touchend", function(e)
+		{
+			var mouseEvent = new MouseEvent("mouseup", {});
+			canvasobj._element.dispatchEvent(mouseEvent);
+		}, false);
+
+		this._element.addEventListener("touchmove", function(e)
+		{
+			var touch = e.touches[0];
+			var mouseEvent = new MouseEvent("mousemove", { clientX: touch.clientX, clientY: touch.clientY });
+			canvasobj._element.dispatchEvent(mouseEvent);
+		}, false);
+	},
+
+    DrawPage: function(pageObject, pageSessionObject)
+    {
+        this._currentPageObject = pageObject;
+        this._currentPageSessionObject = pageSessionObject;
+
+        this._element.width = pageObject.board[0].length * TileSize + 1;
+        this._element.height = pageObject.board.length * TileSize + 1;
+    },
+
+    ClearPage: function()
+    {
+        this._currentPageObject = null;
+        this._currentPageSessionObject = null;
+    },
+
+    StartRendering: function()
+    {
+        if (!this._renderIntervalId)
+            this._renderIntervalId = setInterval(this._drawLoop, 1000 / 30, this)
+    },
+
+    StopRendering: function()
+    {
+        if (this._renderIntervalId)
+        {
+            clearInterval(this._renderIntervalId);
+            this._renderIntervalId = undefined;
+        }
+        this._clearFrame();
+    },
+
+    GetCanvasMouseCoordinates: function(mouseEventObj)
+    {
+        let rect = this._element.getBoundingClientRect();
+        let x = mouseEventObj.clientX - rect.left;
+        let y = mouseEventObj.clientY - rect.top;
+        
+        return { x: x, y: y};
+    }
+};
+Object.freeze(Wordhunt);
+
+var canvasManager;
+var gameSession;
+var pageSession;
 
 var startPageForm; //HTMLElement
 var gamePageForm; //HTMLElement
@@ -27,178 +300,58 @@ function InitializeDocument()
 {
 	startPageForm = document.getElementById("startPage");
 	gamePageForm = document.getElementById("gamePage");
-	endPageForm = document.getElementById("endPage");
+    endPageForm = document.getElementById("endPage");
+
+    canvasManager = new Wordhunt.CanvasManager(document.getElementById("tableCanvas"));
 
 	document.getElementById("btnStartGame").onclick = btnStartGame_onClick;
-
-	tablePanel = document.getElementById("tablePanel");
 	
 	document.getElementById("btnNext").onclick = btnNext_onClick;
 	document.getElementById("btnShowAnswer").onclick = btnShowAnswer_onClick;
-	document.getElementById("btnClear").onclick = btnClear_onClick;
-	document.getElementById("btnCheck").onclick = btnCheck_onClick;
 	
-	CommonScript.DownloadGameData("wordhunt/EPI-wordhunt1.json", Game_onLoad);
+    CommonScript.DownloadGameData("wordhunt/EPI-wordhunt1.json", Game_onLoad);
 }
 
 function Game_onLoad(e)
 {
 	gameSession = e.gameSession;
-	document.getElementById("startPageContent").innerHTML = gameSession.Settings.startPageContent;
-
-	startPageForm.style.display = "";
-}
-
-function DrawPage(pageObject)
-{
-	const table = document.createElement("table");
-	const cpage = pageObject;
-	
-	tableElement = table;
-	tablePanel.appendChild(table);
-
-	for (let y = 0; y < cpage.board.length; y++)
-	{
-		const tableRow = document.createElement("tr"); 
-		for (let x = 0; x < cpage.board[y].length; x++)
-		{
-			const tableCell = document.createElement("td");
-			tableCell.innerText = cpage.board[y][x];
-			tableCell.onclick = tableCell_onClick;
-			tableRow.appendChild(tableCell);
-		}
-		table.appendChild(tableRow);
-	}
-
-	document.getElementById("pageText").innerHTML = cpage.text;
-
-	pageSession = new PageSession(cpage);
-	UpdatePageLabels();
-	UpdateNextButtonState();
+    document.getElementById("startPageContent").innerHTML = gameSession.Settings.startPageContent;
+    
+	CS.SetElementVisibility(startPageForm, true);
 }
 
 function ClearPage()
 {
-	while (tablePanel.firstChild) tablePanel.removeChild(tablePanel.firstChild);
-	pageSession = undefined;
+    canvasManager.ClearPage();
+    canvasManager.StopRendering();
+    pageSession = undefined;
 }
 
-function EndGame()
+function DrawPage(pageObject)
 {
-	ClearPage();
-	CS.SetElementVisibility(gamePageForm, false);
-	CS.SetElementVisibility(endPageForm, true);
+    document.getElementById("pageText").innerHTML = pageObject.text;
+
+    pageSession = new Wordhunt.PageSession(pageObject);
+    canvasManager.DrawPage(pageObject, pageSession);
+    canvasManager.StartRendering();
+
+    UpdateNextButtonState();
+    UpdatePageLabels();
 }
 
-function GetCell(y, x) //HTMLElement
+function CheckForWordOn(gridX, gridY, gridLength, orient, pageObject)
 {
-	return tableElement.childNodes[y].childNodes[x];
-}
+    const words = pageObject.words;
 
-function IsCellChecked(tableCell) //bool
-{
-	return Boolean(tableCell.clicked);
-}
+    for (let i = 0; i < words.length; i++)
+    {
+        const w = words[i];
 
-Array.prototype.removeDuplicates = function() //returns new array
-{
-    let unique_array = this.filter(function(elem, index, self) 
-	{
-        return index == self.indexOf(elem);
-    });
-    return unique_array;
-}
+        if (w.position.x === gridX && w.position.y === gridY && w.string.length === gridLength && w.orient === orient)
+            return words.indexOf(w);
+    }
 
-function GoNextPage()
-{
-	ClearPage();
-	DrawPage(gameSession.NextPage());
-}
-
-function VerifyAnswer()
-{
-	var correclyMarkedCells = []; //HTMLElement (td)
-
-	// Look for correctly marked chars
-
-	for (let w = 0; w < gameSession.CurrentPage().words.length; w++)
-	{
-		
-		let wordObject = gameSession.CurrentPage().words[w];
-		let checkedChars = 0;
-
-		for (let c = 0; c < wordObject.string.length; c++)
-		{
-			
-			if (wordObject.orient === "h")
-			{
-				let charTableCell = GetCell(wordObject.position.y, wordObject.position.x + c);
-				if (IsCellChecked(charTableCell))
-					{ checkedChars++; correclyMarkedCells.push(charTableCell); }
-			}
-			else
-			{
-				let charTableCell = GetCell(wordObject.position.y + c, wordObject.position.x);
-				if (IsCellChecked(charTableCell))
-					{ checkedChars++; correclyMarkedCells.push(charTableCell); }
-			}
-		}
-
-		if (checkedChars === wordObject.string.length)
-			pageSession.WordFound[w] = true; 
-		else
-			pageSession.WordFound[w] = false; 
-
-			
-	}
-
-	correclyMarkedCells = correclyMarkedCells.removeDuplicates();	// Remove duplicated references
-	correclyMarkedCells.forEach( function(item) { item.classList.add("checkedCorrect"); } ); // Set BG color to green
-
-	pageSession.Mistakes = tableElement.querySelectorAll("td.checked").length - correclyMarkedCells.length; // Calculate mistakes
-
-	UpdatePageLabels();
-	UpdateNextButtonState();
-}
-
-function ShowAnswer()
-{
-	for (let w = 0; w < gameSession.CurrentPage().words.length; w++)
-	{
-		let wordObject = gameSession.CurrentPage().words[w];
-
-		for (let c = 0; c < wordObject.string.length; c++)
-		{
-			
-			if (wordObject.orient === "h")
-			{
-				let tcell =  GetCell(wordObject.position.y, wordObject.position.x + c);
-				if (c === 0) tcell.classList.add("HWordAnswerStart");
-				else if (c === wordObject.string.length - 1) tcell.classList.add("HWordAnswerEnd");
-				else tcell.classList.add("HWordAnswerMid");
-			}
-			else
-			{
-				let tcell = GetCell(wordObject.position.y + c, wordObject.position.x);
-				if (c === 0) tcell.classList.add("VWordAnswerStart");
-				else if (c === wordObject.string.length - 1) tcell.classList.add("VWordAnswerEnd");
-				else tcell.classList.add("VWordAnswerMid");
-			}
-		}
-	}
-}
-
-function SwitchCellState(tcell)
-{
-	tcell.clicked = !Boolean(tcell.clicked);
-
-	if (tcell.clicked) 
-		tcell.classList.add("checked")
-	else
-	{
-		tcell.classList.remove("checked");
-		if (tcell.classList.contains("checkedCorrect")) tcell.classList.remove("checkedCorrect");
-	}
+    return -1;
 }
 
 function UpdatePageLabels()
@@ -214,7 +367,6 @@ function UpdatePageLabels()
 		return finalString;
 	}());
 
-	document.getElementById("lblMistakes").innerText = pageSession.Mistakes;
 }
 
 function UpdateNextButtonState()
@@ -226,12 +378,20 @@ function UpdateNextButtonState()
 		btn.disabled = false;	
 }
 
-//#region Event Listeners
-
-function tableCell_onClick(e)
+function GoNextPage()
 {
-	SwitchCellState(e.target);
-} 
+    ClearPage();
+    DrawPage(gameSession.NextPage());
+}
+
+function EndGame()
+{
+    ClearPage();
+    CS.SetElementVisibility(gamePageForm, false);
+    CS.SetElementVisibility(endPageForm, true);
+}
+
+//#region Event Listeners
 
 function btnNext_onClick(e)
 {
@@ -241,14 +401,13 @@ function btnNext_onClick(e)
 		EndGame();
 }
 
-function btnCheck_onClick(e)
-{
-	VerifyAnswer();
-}
-
 function btnShowAnswer_onClick(e)
 {
-	ShowAnswer();
+    for (let i = 0; i < pageSession.WordFound.length; i++)
+        pageSession.WordFound[i] = true;
+
+    UpdatePageLabels();
+    UpdateNextButtonState();
 }
 
 function btnClear_onClick(e)

@@ -10,19 +10,14 @@
 				
 				<div id="panels">
 					<div id="tablePanel">
-						<!--DOM-->
+						<canvas id="tableCanvas"></canvas>
 					</div>
 					<div id="buttonsPanel" >
-						<input type="button" id="btnClear" value="Limpar"/>
-						<input type="button" id="btnCheck" value="Conferir"/>
 						<input type="button" id="btnShowAnswer" value="Solução"/>
 						<input type="button" id="btnNext" value="Prosseguir" disabled/>
 						<br/><br/>
 						Palavras encontradas:<br/>
 						<label id="lblFoundWords"></label>
-						<br/>
-						Letras erradas marcadas: 
-						<label id="lblMistakes">0</label>
 					</div>
 				</div>
 				
