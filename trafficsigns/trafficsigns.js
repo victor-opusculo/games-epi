@@ -61,6 +61,8 @@ TrafficSigns.CanvasManager = function(canvasElement)
 	
 	this.Drawables = [];
 	
+	this._lastTouchPosition = {x: 0, y: 0}
+	
 	this._addMouseEventListeners();
 	this._addTouchEventListeners();
 };
@@ -182,19 +184,27 @@ TrafficSigns.CanvasManager.prototype =
 		this._element.addEventListener("touchstart", function(e)
 		{
 			var touch = e.touches[0];
+			
+			canvasobj._lastTouchPosition.x = touch.clientX;
+			canvasobj._lastTouchPosition.y = touch.clientY;
+			
 			var mouseEvent = new MouseEvent("mousedown", { clientX: touch.clientX, clientY: touch.clientY });
 			canvasobj._element.dispatchEvent(mouseEvent);
 		}, false);
 
 		this._element.addEventListener("touchend", function(e)
 		{
-			var mouseEvent = new MouseEvent("mouseup", {});
+			var mouseEvent = new MouseEvent("mouseup", { clientX: canvasobj._lastTouchPosition.x, clientY: canvasobj._lastTouchPosition.y });
 			canvasobj._element.dispatchEvent(mouseEvent);
 		}, false);
 
 		this._element.addEventListener("touchmove", function(e)
 		{
 			var touch = e.touches[0];
+			
+			canvasobj._lastTouchPosition.x = touch.clientX;
+			canvasobj._lastTouchPosition.y = touch.clientY;
+			
 			var mouseEvent = new MouseEvent("mousemove", { clientX: touch.clientX, clientY: touch.clientY });
 			canvasobj._element.dispatchEvent(mouseEvent);
 		}, false);

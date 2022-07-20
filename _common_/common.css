@@ -30,6 +30,8 @@ h1 { text-align: center; }
 
 label { display: block; }
 
+input { outline: none; }
+
 input[type="button"] 
 {
     margin: 3px;

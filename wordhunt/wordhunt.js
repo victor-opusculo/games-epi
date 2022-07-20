@@ -100,12 +100,16 @@ Wordhunt.CanvasManager.prototype =
         
             ct.beginPath();  
             
-            if (this._xf - this._xo > 0)
+			if (this._xo === this._xf && this._yo === this._yf) // Single letter selection
+			{
+				ct.arc(this._xo, this._yo, TileSize/2, 0, 2*Math.PI);
+			}
+            else if (this._xf - this._xo > 0) // Multi letter selection from left to right
             {
                 ct.arc(this._xo, this._yo, TileSize/2, 0.5*Math.PI+angle, 1.5*Math.PI+angle);
                 ct.arc(this._xf, this._yf, TileSize/2, 1.5*Math.PI+angle, 0.5*Math.PI+angle);
             }
-            else
+            else // Multi letter selection from right to left (or vertical)
             {
                 ct.arc(this._xo, this._yo, TileSize/2, 1.5*Math.PI-angle, 0.5*Math.PI-angle);
                 ct.arc(this._xf, this._yf, TileSize/2, 0.5*Math.PI-angle, 1.5*Math.PI-angle);
